@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_location_on_black_24dp"
+                android:layout_margin="16dp"
+                android:id="@+id/location_but"
+                android:layout_alignParentStart="true">
+            </ImageButton>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="zip"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"
+                android:id="@+id/location"
+                android:layout_toRightOf="@id/location_but">
+            </TextView>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_filter_list_black_24dp"
+                android:layout_toLeftOf="@id/search"
+                android:layout_marginTop="16dp"
+                android:id="@+id/filter">
+            </ImageButton>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_search_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="16dp"
+                android:id="@+id/search">
+            </ImageButton>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IN THEATERS"
+                        android:id="@+id/theater_upper"
+                        android:layout_weight="1">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="THIS WEEKEND"
+                        android:layout_marginStart="16dp"
+                        android:id="@+id/weekend_upper"
+                        android:layout_weight="1">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COMING SOON"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:id="@+id/coming_upper">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MY MOVIES"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:id="@+id/favorites_upper">
+                    </TextView>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </RelativeLayout>
+
+
+
+</LinearLayout>
