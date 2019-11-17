@@ -1,6 +1,7 @@
 package edu.cs371m.silverscreen.api.api
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class MoviePost(
     @SerializedName("title")
@@ -16,7 +17,9 @@ data class MoviePost(
     @SerializedName("runTime")
     val duration: String,
     @SerializedName("ratings")
-    val rating: List<String>
+    val rating: List<String>,
+    @SerializedName("releaseDate")
+    val date: Date
 //    @SerializedName("preferredImage")
 
 
