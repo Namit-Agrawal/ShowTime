@@ -20,7 +20,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
         var movieTitleText = itemView.findViewById<TextView>(R.id.movie_name)
         var durationText = itemView.findViewById<TextView>(R.id.duration)
         var actors = itemView.findViewById<TextView>(R.id.pop_actors)
-        var date = itemView.findViewById<TextView>(R.id.date)
+       // var date = itemView.findViewById<TextView>(R.id.date)
         var thumbnail = itemView.findViewById<ImageView>(R.id.thumbnail)
         var wholePost = itemView.findViewById<LinearLayout>(R.id.post)
         init{
@@ -50,7 +50,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             {
                 actors.isInvisible = true
             }
-            date.text = item.date.toString()
+           // date.text = item.date.toString()
         }
 
 
@@ -58,19 +58,16 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.movie_row, parent, false)
         return VH(itemView)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         holder.bind(movies[holder.adapterPosition])
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         return movies.size
     }
     fun getList(): List<MoviePost>

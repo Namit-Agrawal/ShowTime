@@ -15,11 +15,11 @@ import java.util.*
 interface MovieApi {
 //    @GET("v1.1/movies/showings?startDate=2019-11-17&zip=78701&api_key=bsj768xkm54t6wuchqxxrbrt")
     @GET("v1.1/movies/showings")
-    fun getTopBefore(
-    @Query("startDate")startDate: Date,
+    suspend fun getTopBefore(
+    @Query("startDate")startDate: String,
     @Query("zip") zip :String,
-    @Query("radius") radius: String
-    ):MovieResponse
+    @Query("radius") radius: String,
+    @Query("api_key")key: String):MovieResponse
 
     data class MovieResponse(val results: List<MoviePost>)
 

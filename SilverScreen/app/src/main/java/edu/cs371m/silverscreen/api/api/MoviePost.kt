@@ -17,10 +17,8 @@ data class MoviePost(
     @SerializedName("runTime")
     val duration: String,
     @SerializedName("ratings")
-    val rating: List<String>,
-    @SerializedName("releaseDate")
-    val date: Date
+    val rating: List<String>
+//    @SerializedName("releaseDate")
+//    val date: Date
 //    @SerializedName("preferredImage")
-
-
 )
