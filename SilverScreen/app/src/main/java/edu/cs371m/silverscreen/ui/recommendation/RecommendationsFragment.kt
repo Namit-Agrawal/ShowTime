@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import edu.cs371m.silverscreen.R
 
-class RecommendationsFragmentFragment : Fragment() {
+class RecommendationsFragment : Fragment() {
 
     private lateinit var dashboardViewModel: RecommendationsViewModel
 

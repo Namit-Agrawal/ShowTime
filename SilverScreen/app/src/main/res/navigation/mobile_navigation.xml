@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_recommendations"
-        android:name="edu.cs371m.silverscreen.ui.recommendation.RecommendationsFragmentFragment"
+        android:name="edu.cs371m.silverscreen.ui.recommendation.RecommendationsFragment"
         android:label="@string/title_recommendation"
         tools:layout="@layout/fragment_recommendations" />
 
