@@ -20,7 +20,7 @@
         android:textSize="50dp"
         android:id="@+id/app_title"
         android:fontFamily="@font/nulshockbd"
-        android:layout_gravity="top"
+        android:gravity="center"
         >
 
     </TextView>

@@ -8,4 +8,12 @@ class MovieRepository(private val movieApi: MovieApi) {
     suspend fun fetchResponse(): List<MoviePost> {
         return movieApi.getTopBefore().results
     }
+
+    suspend fun fetchMovie(id: Int):MoviePost {
+        return movieApi.getMovie(id).results
+    }
+
+    suspend fun fetchCredits(id: Int): MoviePost {
+        return movieApi.getCredits(id).results
+    }
 }

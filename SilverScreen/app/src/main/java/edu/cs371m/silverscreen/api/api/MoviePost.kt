@@ -13,8 +13,13 @@ data class MoviePost(
     @SerializedName("release_date")
     val date:String,
     @SerializedName("popularity")
-    val rating: Float
-
+    val rating: Float,
+    @SerializedName("runtime")
+    val duration:Int,
+    @SerializedName("cast")
+    val cast: Array<cast_obj>,
+    @SerializedName("poster_path")
+    val thumbnail:String
 //    val allGenres: List<String>,
 //    @SerializedName("longDescription")
 //    val description: String,
@@ -29,4 +34,10 @@ data class MoviePost(
 ////    @SerializedName("releaseDate")
 //    val date: Date
 //    @SerializedName("preferredImage")
+)
+
+
+data class cast_obj(
+    @SerializedName("name")
+    val actor: String
 )

@@ -1,5 +1,6 @@
 package edu.cs371m.silverscreen.ui.movies
 
+import android.graphics.Movie
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.core.view.isInvisible
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
@@ -35,6 +37,20 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
                 return;
             movieTitleText.text = item.movieName
             date.text = item.date
+//            MovieViewModel.netCreditRefresh(item.movie_id)
+//            MovieViewModel.netMovieRefresh(item.movie_id)
+           // val cast = MovieViewModel.observeCast().observe(fragment, Observer {  })
+            val movie = MovieViewModel.observeMovieInfo().value
+
+           // durationText.text = movie?.duration.toString() + "minutes"
+
+//            val cast_array = cast!!.cast
+//            actors.text = cast_array[0].actor +", " +cast_array[1].actor
+            if(item.thumbnail!=null)
+            {
+                MovieViewModel.netFetchImage(item.thumbnail, thumbnail)
+            }
+
 
            // date.text = item.date.toString()
         }

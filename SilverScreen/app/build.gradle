@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -50,10 +50,10 @@ dependencies {
 
 
     // Glide
-//    implementation 'com.github.bumptech.glide:glide:4.10.0'
-//    kapt 'com.github.bumptech.glide:compiler:4.10.0'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
-//    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    kapt 'com.github.bumptech.glide:compiler:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    annotationProcessor 'androidx.annotation:annotation:1.1.0'
 
 
     //add coroutines to the app

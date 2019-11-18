@@ -17,8 +17,17 @@ interface MovieApi {
     @GET("/3/movie/now_playing?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
     suspend fun getTopBefore(): MovieResponse
 
+    @GET("/3/movie/{movie_id}?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
+    suspend fun getMovie(
+        @Path("movie_id")movie_id:Int):MovieR
+    @GET("/3/movie/{movie_id}/credits?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
+    suspend fun getCredits(
+        @Path("movie_id")movie_id:Int):MovieR
+
 
     data class MovieResponse(val results:List<MoviePost>)
+
+    data class MovieR(val results: MoviePost)
 
 
 

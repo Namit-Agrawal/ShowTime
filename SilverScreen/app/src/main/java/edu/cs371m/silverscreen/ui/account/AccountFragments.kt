@@ -36,10 +36,7 @@ class AccountFragment : Fragment() {
                 it?.customView = customView
             }
         }
-        val textView: TextView = root.findViewById(R.id.text_account)
-        dashboardViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
+
         return root
     }
 }

@@ -1,10 +1,13 @@
 package edu.cs371m.silverscreen.ui.movies
 
+import android.graphics.Movie
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import edu.cs371m.silverscreen.Glide.Glide
 import edu.cs371m.silverscreen.api.api.MovieApi
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.MovieRepository
@@ -25,8 +28,19 @@ class MoviesViewModel : ViewModel() {
         value = mutableListOf()
     }
 
+    var movie = MutableLiveData<MoviePost>().apply { value =null }
+    var cast = MutableLiveData<MoviePost>().apply { value =null }
+
     fun observeMovies():LiveData<List<MoviePost>> {
         return all_list
+    }
+
+    fun observeMovieInfo():LiveData<MoviePost> {
+        return movie
+    }
+
+    fun observeCast():LiveData<MoviePost> {
+        return cast
     }
 
     fun netSubRefresh()= viewModelScope.launch(
@@ -36,6 +50,20 @@ class MoviesViewModel : ViewModel() {
         val date = Date()
 
         all_list.postValue(movieRepo.fetchResponse())
+    }
+
+    fun netFetchImage(thumbnail: String, imageView: ImageView) {
+        Log.d("*************8", "sup")
+        Glide.glideFetch(thumbnail, imageView)
+    }
+    fun netMovieRefresh(id:Int)=viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO) {
+        movie.postValue(movieRepo.fetchMovie(id))
+    }
+
+    fun netCreditRefresh(id:Int)=viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO) {
+        cast.postValue(movieRepo.fetchCredits(id))
     }
 
 
