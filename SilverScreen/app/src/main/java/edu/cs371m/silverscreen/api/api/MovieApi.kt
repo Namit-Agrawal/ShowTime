@@ -14,14 +14,11 @@ import java.util.*
 
 interface MovieApi {
 //    @GET("v1.1/movies/showings?startDate=2019-11-17&zip=78701&api_key=bsj768xkm54t6wuchqxxrbrt")
-    @GET("v1.1/movies/showings")
-    suspend fun getTopBefore(
-    @Query("startDate")startDate: String,
-    @Query("zip") zip :String,
-    @Query("radius") radius: String,
-    @Query("api_key")key: String):MovieResponse
+    @GET("/3/movie/now_playing?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
+    suspend fun getTopBefore(): MovieResponse
 
-    data class MovieResponse(val results: List<MoviePost>)
+
+    data class MovieResponse(val results:List<MoviePost>)
 
 
 
@@ -32,8 +29,8 @@ interface MovieApi {
         }
         //private const val BASE_URL = "https://developer.fandango.com/"
         var httpurl = HttpUrl.Builder()
-            .scheme("http")
-            .host("data.tmsapi.com")
+            .scheme("https")
+            .host("api.themoviedb.org")
             .build()
         fun create(): MovieApi = create(httpurl)
         private fun create(httpUrl: HttpUrl): MovieApi {

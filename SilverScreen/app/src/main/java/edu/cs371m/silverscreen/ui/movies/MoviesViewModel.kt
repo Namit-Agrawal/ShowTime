@@ -35,19 +35,7 @@ class MoviesViewModel : ViewModel() {
 
         val date = Date()
 
-//        val formatter =SimpleDateFormat("yyyy mm dd")
-//        //val date2 = date.format(formatter)
-//        val date2 = formatter.format(date)
-//        val date3 = Date(date2)
-     //   Log.d("message", date3.toString() + "************88")
-        //date.toString() use date to make the toDate
-
-        //val toDate = "20191117"
-//        val toDate = ""
-        //val formater = SimpleDateFormat("yyyyMMdd", Locale.ENGLISH).parse(toDate)
-
-
-        all_list.postValue(movieRepo.fetchResponse("2019-11-17","78705","10", "bsj768xkm54t6wuchqxxrbrt"))
+        all_list.postValue(movieRepo.fetchResponse())
     }
 
 

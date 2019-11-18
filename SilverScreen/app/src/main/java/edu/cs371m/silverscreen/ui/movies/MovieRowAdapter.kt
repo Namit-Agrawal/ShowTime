@@ -20,7 +20,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
         var movieTitleText = itemView.findViewById<TextView>(R.id.movie_name)
         var durationText = itemView.findViewById<TextView>(R.id.duration)
         var actors = itemView.findViewById<TextView>(R.id.pop_actors)
-       // var date = itemView.findViewById<TextView>(R.id.date)
+        var date = itemView.findViewById<TextView>(R.id.date)
         var thumbnail = itemView.findViewById<ImageView>(R.id.thumbnail)
         var wholePost = itemView.findViewById<LinearLayout>(R.id.post)
         init{
@@ -34,22 +34,8 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             if(item == null)
                 return;
             movieTitleText.text = item.movieName
-            durationText.text = item.duration.substring(2)
-            var i = 0
-            val sb = StringBuilder()
-            if(item.cast!=null) {
-                while (i < item.cast.size) {
-                    sb.append(item.cast[i])
-                    sb.append(" ,")
-                    i++
-                }
-                sb.deleteCharAt(sb.length - 1)
-                actors.text = sb.toString()
-            }
-            else
-            {
-                actors.isInvisible = true
-            }
+            date.text = item.date
+
            // date.text = item.date.toString()
         }
 
