@@ -1,5 +1,4 @@
 package edu.cs371m.silverscreen.api.api
-import android.graphics.Movie
 import com.google.gson.GsonBuilder
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -13,23 +12,18 @@ import retrofit2.http.Query
 import java.util.*
 
 interface MovieApi {
-//    @GET("v1.1/movies/showings?startDate=2019-11-17&zip=78701&api_key=bsj768xkm54t6wuchqxxrbrt")
-    @GET("/3/movie/now_playing?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
-    suspend fun getTopBefore(): MovieResponse
-
-    @GET("/3/movie/{movie_id}?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
-    suspend fun getMovie(
-        @Path("movie_id")movie_id:Int):MovieR
-    @GET("/3/movie/{movie_id}/credits?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
-    suspend fun getCredits(
-        @Path("movie_id")movie_id:Int):MovieR
+@GET("v1.1/movies/showings")
 
 
-    data class MovieResponse(val results:List<MoviePost>)
 
-    data class MovieR(val results: MoviePost)
+suspend fun getTopBefore(
+    @Query("startDate")startDate: String,
+    @Query("zip") zip :String,
+    @Query("radius") radius: String,
+    @Query("api_key")key: String): List<MoviePost>
 
 
+    data class MovieResponse(val results: List<MoviePost>)
 
     companion object {
         private fun buildGsonConverterFactory(): GsonConverterFactory {
@@ -39,7 +33,7 @@ interface MovieApi {
         //private const val BASE_URL = "https://developer.fandango.com/"
         var httpurl = HttpUrl.Builder()
             .scheme("https")
-            .host("api.themoviedb.org")
+            .host("data.tmsapi.com")
             .build()
         fun create(): MovieApi = create(httpurl)
         private fun create(httpUrl: HttpUrl): MovieApi {

@@ -45,26 +45,14 @@ class MoviesViewModel : ViewModel() {
 
     fun netSubRefresh()= viewModelScope.launch(
         context = viewModelScope.coroutineContext + Dispatchers.IO) {
-
-
-        val date = Date()
-
-        all_list.postValue(movieRepo.fetchResponse())
+        all_list.postValue(movieRepo.fetchResponse("2019-11-20","78705","10", "2w6p3khxsxqkgjkjtxcr4xjb"))
     }
 
     fun netFetchImage(thumbnail: String, imageView: ImageView) {
         Log.d("*************8", "sup")
         Glide.glideFetch(thumbnail, imageView)
     }
-    fun netMovieRefresh(id:Int)=viewModelScope.launch(
-        context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        movie.postValue(movieRepo.fetchMovie(id))
-    }
 
-    fun netCreditRefresh(id:Int)=viewModelScope.launch(
-        context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        cast.postValue(movieRepo.fetchCredits(id))
-    }
 
 
         private val _text = MutableLiveData<String>().apply {

@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_theaters"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_local_activity_black_10dp"
         android:title="@string/title_theaters"/>
 
     <item
@@ -23,7 +23,7 @@
 
     <item
         android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_account_box_black_24dp"
         android:title="@string/title_account"/>
 
 </menu>

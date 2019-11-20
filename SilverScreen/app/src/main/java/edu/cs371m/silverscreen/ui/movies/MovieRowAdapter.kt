@@ -36,23 +36,23 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             if(item == null)
                 return;
             movieTitleText.text = item.movieName
-            date.text = item.date
-//            MovieViewModel.netCreditRefresh(item.movie_id)
-//            MovieViewModel.netMovieRefresh(item.movie_id)
-           // val cast = MovieViewModel.observeCast().observe(fragment, Observer {  })
-            val movie = MovieViewModel.observeMovieInfo().value
-
-           // durationText.text = movie?.duration.toString() + "minutes"
-
-//            val cast_array = cast!!.cast
-//            actors.text = cast_array[0].actor +", " +cast_array[1].actor
-            if(item.thumbnail!=null)
-            {
-                MovieViewModel.netFetchImage(item.thumbnail, thumbnail)
+            durationText.text = item.duration.substring(3,4)+" hr "+item.duration.substring(5,7)+" min"
+            var i = 0
+            val sb = StringBuilder()
+            if(item.cast!=null) {
+                while (i < item.cast.size) {
+                    sb.append(item.cast[i])
+                    sb.append(", ")
+                    i++
+                }
+                sb.deleteCharAt(sb.length - 1)
+                actors.text = sb.toString()
             }
-
-
-           // date.text = item.date.toString()
+            else
+            {
+                actors.isInvisible = true
+            }
+            date.isInvisible=true
         }
 
 
@@ -66,7 +66,13 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(movies[holder.adapterPosition])
+        if(position==0)
+        {
+            holder.itemView.layoutParams= ViewGroup.LayoutParams(0,0)
+        }
+        else
+            holder.bind(movies[holder.adapterPosition])
+
     }
 
     override fun getItemCount(): Int {
