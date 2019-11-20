@@ -50,7 +50,7 @@ object Glide {
     fun glideFetch(thumbnailURL: String, imageView: ImageView) {
         GlideApp.with(imageView.context)
             .asBitmap() // Try to display animated Gifs and video still
-            .load(fromHtml("https://image.tmdb.org/t/p/w185/"+thumbnailURL))
+            .load(fromHtml(thumbnailURL))
             .apply(glideOptions)
             .error(R.color.colorAccent)
             .override(185, 185)

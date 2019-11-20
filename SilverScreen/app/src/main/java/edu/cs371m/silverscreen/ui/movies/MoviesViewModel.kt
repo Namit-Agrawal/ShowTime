@@ -49,7 +49,8 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun netFetchImage(thumbnail: String, imageView: ImageView) {
-        Log.d("*************8", "sup")
+        Log.d("*************8", thumbnail)
+
         Glide.glideFetch(thumbnail, imageView)
     }
 

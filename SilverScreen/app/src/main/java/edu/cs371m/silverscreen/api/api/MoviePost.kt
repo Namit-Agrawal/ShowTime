@@ -15,28 +15,13 @@ data class MoviePost(
     @SerializedName("directors")
     val director: List<String>,
     @SerializedName("runTime")
-    val duration: String
-//    @SerializedName("ratings")
-//    val rating: List<String>
-//    @SerializedName("releaseDate")
-//    val allGenres: List<String>,
-//    @SerializedName("longDescription")
-//    val description: String,
-//    @SerializedName("topCast")
-//    val cast: List<String>,
-//    @SerializedName("directors")
-//    val director: List<String>,
-//    @SerializedName("runTime")
-//    val duration: String,
-//    @SerializedName("ratings")
-//    val rating: List<String>
-////    @SerializedName("releaseDate")
-//    val date: Date
-//    @SerializedName("preferredImage")
+    val duration: String,
+    @SerializedName("preferredImage")
+    val img: image
 )
 
-
-data class cast_obj(
-    @SerializedName("name")
-    val actor: String
+data class image(
+    @SerializedName("uri")
+    val image_url: String
 )
+

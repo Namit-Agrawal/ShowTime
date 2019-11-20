@@ -1,6 +1,7 @@
 package edu.cs371m.silverscreen.ui.movies
 
 import android.graphics.Movie
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,9 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
                 return;
             movieTitleText.text = item.movieName
             durationText.text = item.duration.substring(3,4)+" hr "+item.duration.substring(5,7)+" min"
+           Log.d("message", item.img.image_url + "******")
+            MovieViewModel.netFetchImage("http://developer.tmsimg.com/" +item.img.image_url +
+            "?api_key=bsj768xkm54t6wuchqxxrbrt", thumbnail)
             var i = 0
             val sb = StringBuilder()
             if(item.cast!=null) {
