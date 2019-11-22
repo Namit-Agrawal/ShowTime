@@ -24,7 +24,7 @@ class TheatersViewModel : ViewModel() {
 
     fun netSubRefresh()= viewModelScope.launch(
         context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        all_list.postValue(movieRepo.fetchTheatre("78705", "10","2w6p3khxsxqkgjkjtxcr4xjb" ))
+        all_list.postValue(movieRepo.fetchTheatre("78705", "10","bsj768xkm54t6wuchqxxrbrt" ))
     }
 
 }

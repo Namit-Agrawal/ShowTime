@@ -45,7 +45,7 @@ class MoviesViewModel : ViewModel() {
 
     fun netSubRefresh()= viewModelScope.launch(
         context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        all_list.postValue(movieRepo.fetchResponse("2019-11-20","78705","10", "2w6p3khxsxqkgjkjtxcr4xjb"))
+        all_list.postValue(movieRepo.fetchResponse("2019-11-22","78705","10", "2w6p3khxsxqkgjkjtxcr4xjb"))
     }
 
     fun netFetchImage(thumbnail: String, imageView: ImageView) {

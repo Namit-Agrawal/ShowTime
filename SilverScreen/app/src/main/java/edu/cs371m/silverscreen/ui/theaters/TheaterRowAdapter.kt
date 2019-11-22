@@ -1,5 +1,6 @@
 package edu.cs371m.silverscreen.ui.theaters
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -10,6 +11,7 @@ import edu.cs371m.silverscreen.api.api.TheatrePost
 import kotlinx.android.synthetic.main.theaters_row.view.*
 
 class TheaterRowAdapter(private val viewModel: TheatersViewModel):RecyclerView.Adapter<TheaterRowAdapter.VH>() {
+    private var theaters = listOf<TheatrePost>()
     inner class VH(itemView: View): RecyclerView.ViewHolder(itemView){
         var theatre = itemView.findViewById<TextView>(R.id.theatre_name)
         var address = itemView.findViewById<TextView>(R.id.address)
@@ -22,6 +24,12 @@ class TheaterRowAdapter(private val viewModel: TheatersViewModel):RecyclerView.A
             }
         }
         fun bind(item: TheatrePost?) {
+            if (item == null) {
+                return;
+            }
+            theatre.text = item.name
+            address.text = item.loc.address.st
+            distance.text = "%.2f".format(item.loc.distance) +" mi"
 
         }
 
@@ -29,14 +37,19 @@ class TheaterRowAdapter(private val viewModel: TheatersViewModel):RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            holder.bind(theaters[holder.adapterPosition])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.theaters_row, parent, false)
+        return VH(itemView)
     }
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return theaters.size
     }
-
+    fun submitList(items: List<TheatrePost>) {
+        theaters = items
+        notifyDataSetChanged()
+    }
 }

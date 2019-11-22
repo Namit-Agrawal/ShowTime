@@ -22,8 +22,7 @@ suspend fun getTopBefore(
     @Query("radius") radius: String,
     @Query("api_key")key: String): List<MoviePost>
 
-
-
+    @GET("v1.1/theatres")
 suspend fun getTheatres(
     //can do zip code or lat long
     @Query("zip") zip:String,
