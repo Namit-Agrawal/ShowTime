@@ -20,8 +20,33 @@ data class MoviePost(
     val img: image
 )
 
+
 data class image(
     @SerializedName("uri")
     val image_url: String
 )
 
+data class TheatrePost(
+    @SerializedName("theatreId")
+    val id: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("location")
+    val loc: location,
+    @SerializedName("telephone")
+    val phone: String
+)
+
+data class location (
+    @SerializedName("distance")
+    val distance : Double,
+    @SerializedName("address")
+    val address: address
+
+)
+data class address (
+    @SerializedName("street")
+    val st: String,
+    @SerializedName("city")
+    val city: String
+)

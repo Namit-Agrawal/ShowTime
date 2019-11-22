@@ -7,21 +7,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.R
 
 class TheatersFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: TheatersViewModel
+    private lateinit var viewModel: TheatersViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
+        viewModel =
                 ViewModelProviders.of(this).get(TheatersViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_theaters, container, false)
         val toolBar = root.findViewById<Toolbar>(R.id.toolbar)
@@ -36,11 +40,30 @@ class TheatersFragment : Fragment() {
                 it?.customView = customView
             }
         }
-
-        val textView: TextView = root.findViewById(R.id.text_theaters)
-        notificationsViewModel.text.observe(this, Observer {
-            textView.text = it
+        viewModel.netSubRefresh()
+        val adapter = initRecyclerView(root)
+        viewModel.observeTheaters().observe(this, Observer {
+                        adapter.submitList(it)
         })
+
+
         return root
     }
+
+
+    private fun initRecyclerView(root: View?): TheaterRowAdapter {
+        val rv = root!!.findViewById<RecyclerView>(R.id.recycler_view_theater)
+
+        val adapter =TheaterRowAdapter(viewModel)
+        rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(context)
+        val itemDecor = DividerItemDecoration(rv.context, LinearLayoutManager.VERTICAL)
+        itemDecor.setDrawable(ContextCompat.getDrawable(rv.context, R.drawable.divider)!!)
+        rv.addItemDecoration(itemDecor)
+        return adapter
+    }
+
 }
+
+
+

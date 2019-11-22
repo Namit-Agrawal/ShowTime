@@ -3,11 +3,28 @@ package edu.cs371m.silverscreen.ui.theaters
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import edu.cs371m.silverscreen.api.api.MovieApi
+import edu.cs371m.silverscreen.api.api.MovieRepository
+import edu.cs371m.silverscreen.api.api.TheatrePost
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TheatersViewModel : ViewModel() {
+    private val movieApi = MovieApi.create()
+    private val movieRepo = MovieRepository(movieApi)
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is theaters Fragment"
+    var all_list = MutableLiveData<List<TheatrePost>>().apply {
+        value = mutableListOf()
     }
-    val text: LiveData<String> = _text
+    fun observeTheaters():LiveData<List<TheatrePost>> {
+        return all_list
+    }
+
+
+    fun netSubRefresh()= viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO) {
+        all_list.postValue(movieRepo.fetchTheatre("78705", "10","2w6p3khxsxqkgjkjtxcr4xjb" ))
+    }
+
 }

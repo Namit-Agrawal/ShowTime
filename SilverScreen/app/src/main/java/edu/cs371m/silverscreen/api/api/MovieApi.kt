@@ -23,6 +23,13 @@ suspend fun getTopBefore(
     @Query("api_key")key: String): List<MoviePost>
 
 
+
+suspend fun getTheatres(
+    //can do zip code or lat long
+    @Query("zip") zip:String,
+    @Query("radius") radius: String,
+    @Query("api_key") key: String) : List<TheatrePost>
+
     data class MovieResponse(val results: List<MoviePost>)
 
     companion object {
