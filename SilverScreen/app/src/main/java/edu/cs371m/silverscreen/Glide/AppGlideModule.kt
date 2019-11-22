@@ -31,7 +31,7 @@ class AppGlideModule : AppGlideModule() {
 object Glide {
     private val width = Resources.getSystem().displayMetrics.widthPixels
     private val height = Resources.getSystem().displayMetrics.heightPixels
-    private var glideOptions  = RequestOptions ()
+    private var glideOptions = RequestOptions()
         // Options like CenterCrop are possible, but I like this one best
         // Evidently you need fitCenter or dontTransform.  If you use centerCrop, your
         // list disappears.  I think that was an old bug.
@@ -47,13 +47,22 @@ object Glide {
             return Html.fromHtml(source).toString()
         }
     }
-    fun glideFetch(thumbnailURL: String, imageView: ImageView) {
-        GlideApp.with(imageView.context)
-            .asBitmap() // Try to display animated Gifs and video still
-            .load(fromHtml(thumbnailURL))
-            .apply(glideOptions)
-            .error(R.color.colorAccent)
-            .override(185, 185)
-            .into(imageView)
+
+    fun glideFetch(thumbnailURL: String, imageView: ImageView, bool: Boolean) {
+        fun glideFetch(thumbnailURL: String, imageView: ImageView, bool: Boolean) {
+            var w = 185
+            var h = 185
+            if (bool) {
+                w = 300
+                h = 300
+            }
+            GlideApp.with(imageView.context)
+                .asBitmap() // Try to display animated Gifs and video still
+                .load(fromHtml(thumbnailURL))
+                .apply(glideOptions)
+                .error(R.color.colorAccent)
+                .override(w, h)
+                .into(imageView)
+        }
     }
 }

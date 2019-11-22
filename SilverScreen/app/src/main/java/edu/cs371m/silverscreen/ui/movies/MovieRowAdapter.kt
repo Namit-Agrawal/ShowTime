@@ -29,6 +29,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
         init{
             wholePost.setOnClickListener {
                 val position = adapterPosition
+                MoviesViewModel.doMoviePost(itemView.context, movies[position])
             }
         }
 
@@ -39,8 +40,9 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             movieTitleText.text = item.movieName
             durationText.text = item.duration.substring(3,4)+" hr "+item.duration.substring(5,7)+" min"
            Log.d("message", item.img.image_url + "******")
+
             MovieViewModel.netFetchImage("http://developer.tmsimg.com/" +item.img.image_url +
-            "?api_key=bsj768xkm54t6wuchqxxrbrt", thumbnail)
+                    "?api_key=bsj768xkm54t6wuchqxxrbrt", thumbnail, false)
             var i = 0
             val sb = StringBuilder()
             if(item.cast!=null) {

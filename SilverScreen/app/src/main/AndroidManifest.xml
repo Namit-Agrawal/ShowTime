@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ui.movies.OneMoviePost"></activity>
         <activity android:name=".Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
