@@ -49,7 +49,7 @@ object Glide {
     }
 
     fun glideFetch(thumbnailURL: String, imageView: ImageView, bool: Boolean) {
-        fun glideFetch(thumbnailURL: String, imageView: ImageView, bool: Boolean) {
+
             var w = 185
             var h = 185
             if (bool) {
@@ -57,12 +57,12 @@ object Glide {
                 h = 300
             }
             GlideApp.with(imageView.context)
+
                 .asBitmap() // Try to display animated Gifs and video still
                 .load(fromHtml(thumbnailURL))
                 .apply(glideOptions)
                 .error(R.color.colorAccent)
                 .override(w, h)
                 .into(imageView)
-        }
     }
 }

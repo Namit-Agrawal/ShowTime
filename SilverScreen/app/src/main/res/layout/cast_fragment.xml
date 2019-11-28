@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.dummy.Cast">
+    tools:context=".ui.cast.Cast">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List of directors if provided"
+            android:text="Directors not provided"
             android:textSize="12sp"
             android:id="@+id/director_list">
         </TextView>
@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List of cast if provided"
+            android:text="Cast not provided"
             android:textSize="12sp"
             android:id="@+id/cast_list">
         </TextView>
@@ -61,9 +61,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Release date if provided"
+            android:text="Release date not provided"
             android:textSize="12sp"
             android:id="@+id/release">
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rated: "
+            android:textStyle="bold"
+            android:textSize="12sp">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating not provided"
+            android:textSize="12sp"
+            android:id="@+id/rating">
         </TextView>
     </LinearLayout>
     <LinearLayout
@@ -81,7 +101,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Synopsis if provided"
+            android:text="Synopsis not provided"
             android:textSize="12sp"
             android:id="@+id/synopsis">
         </TextView>
@@ -101,18 +121,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List of genres if provided"
+            android:text="Genres not provided"
             android:textSize="12sp"
             android:id="@+id/genres_list">
         </TextView>
     </LinearLayout>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:src = "@drawable/ic_launcher_background"
-        android:id="@+id/thumbnail"
-        android:layout_margin="16dp">
-    </ImageView>
+
 </LinearLayout>

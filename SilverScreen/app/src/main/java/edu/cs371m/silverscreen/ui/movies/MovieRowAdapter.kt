@@ -38,21 +38,14 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             if(item == null)
                 return;
             movieTitleText.text = item.movieName
+            if(item.duration!=null)
             durationText.text = item.duration.substring(3,4)+" hr "+item.duration.substring(5,7)+" min"
            Log.d("message", item.img.image_url + "******")
 
-            MovieViewModel.netFetchImage("http://developer.tmsimg.com/" +item.img.image_url +
-                    "?api_key=bsj768xkm54t6wuchqxxrbrt", thumbnail, false)
-            var i = 0
-            val sb = StringBuilder()
+            MovieViewModel.netFetchImage("http://demo.tmsimg.com/"+item.img.image_url, thumbnail, false)
+
             if(item.cast!=null) {
-                while (i < item.cast.size) {
-                    sb.append(item.cast[i])
-                    sb.append(", ")
-                    i++
-                }
-                sb.deleteCharAt(sb.length - 1)
-                actors.text = sb.toString()
+                actors.text = item.getMovieList(item.cast)
             }
             else
             {

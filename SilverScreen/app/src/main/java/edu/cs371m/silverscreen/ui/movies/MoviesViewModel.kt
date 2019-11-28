@@ -52,8 +52,8 @@ class MoviesViewModel : ViewModel() {
     ) {
         all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-11-22",
-                "78705",
+                "2019-11-28",
+                "78701",
                 "10",
                 "bsj768xkm54t6wuchqxxrbrt"
             )
@@ -70,18 +70,7 @@ class MoviesViewModel : ViewModel() {
         fun doMoviePost(context: Context, moviePost: MoviePost) {
             val intent = Intent(context, OneMoviePost::class.java)
             val myExtras = Bundle()
-            myExtras.putString(
-                "image", "http://developer.tmsimg.com/" + moviePost.img.image_url +
-                        "?api_key=bsj768xkm54t6wuchqxxrbrt"
-            )
-            myExtras.putString(
-                "duration",
-                moviePost.duration.substring(3, 4) + " hr " + moviePost.duration.substring(
-                    5,
-                    7
-                ) + " min"
-            )
-            myExtras.putString("title", moviePost.movieName)
+            myExtras.putParcelable("movie_info", moviePost)
             intent.putExtras(myExtras)
             startActivity(context, intent, myExtras)
         }
