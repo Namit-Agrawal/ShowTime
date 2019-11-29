@@ -29,6 +29,9 @@ suspend fun getTheatres(
     @Query("radius") radius: String,
     @Query("api_key") key: String) : List<TheatrePost>
 
+
+
+
     data class MovieResponse(val results: List<MoviePost>)
 
     companion object {

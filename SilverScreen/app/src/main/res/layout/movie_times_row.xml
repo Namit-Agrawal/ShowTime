@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/post">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content"
+                android:id="@+id/theatre_name"
+                android:text="Theatre name"
+                android:textStyle="bold"
+                android:textSize="20dp"></TextView>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="miles"
+                android:layout_marginEnd="16dp"
+
+                android:id="@+id/distance">
+
+
+            </TextView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="address"
+            android:id="@+id/address"
+            android:textSize="15dp"
+
+            >
+
+        </TextView>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeBox">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height ="wrap_content"
+                    android:id="@+id/r0">
+
+                </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height ="wrap_content"
+                android:id="@+id/r1">
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height ="wrap_content"
+                android:id="@+id/r2">
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height ="wrap_content"
+                android:id="@+id/r3">
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height ="wrap_content"
+                android:id="@+id/r4">
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height ="wrap_content"
+                android:id="@+id/r5">
+
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

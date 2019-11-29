@@ -24,7 +24,9 @@ data class MoviePost(
     @SerializedName("preferredImage")
     val img: image,
     @SerializedName("ratings")
-    val rating: List<Rating>
+    val rating: List<Rating>,
+    @SerializedName("showtimes")
+    val showtimes: List<Times>
 ):Parcelable {
     fun getMovieList(list: List<String>): String {
         // XXX Write me
@@ -53,6 +55,10 @@ data class image(
     @SerializedName("uri")
     val image_url: String
 ): Parcelable
+
+
+
+
 
 @Parcelize
 data class TheatrePost(
@@ -84,3 +90,21 @@ data class address (
     val city: String
 ):Parcelable
 
+
+
+
+@Parcelize
+data class Times(
+    @SerializedName("theatre")
+    val theatre : Theatre,
+    @SerializedName("dateTime")
+    val time :String
+):Parcelable
+
+@Parcelize
+data class Theatre(
+    @SerializedName("id")
+    val theatreId: String,
+    @SerializedName("name")
+    val name:String
+): Parcelable

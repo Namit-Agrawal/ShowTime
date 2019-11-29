@@ -59,7 +59,7 @@ class OneMoviePost : AppCompatActivity() {
         movie_timings.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.frag, MovieTimes.newInstance())
+                .replace(R.id.frag, MovieTimes.newInstance(entireMoviePost))
                 .commit()
         }
     }

@@ -8,46 +8,53 @@
     android:background="#dddddd">
 
 
-    <LinearLayout
-        android:layout_margin="16dp"
+<!--    <LinearLayout-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:background="#FFFFFF"-->
+<!--        android:id="@+id/button">-->
+<!--        <TextView-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:id="@+id/day_of_week"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:text = "TODAY">-->
+<!--        </TextView>-->
+<!--        <TextView-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:id="@+id/month"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/nulshockbd"-->
+<!--            android:text="NOV">-->
+<!--        </TextView>-->
+<!--        <TextView-->
+
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:id="@+id/day"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="28sp"-->
+<!--            android:fontFamily="@font/"-->
+<!--            android:text="22">-->
+<!--        </TextView>-->
+<!--    </LinearLayout>-->
+    <androidx.recyclerview.widget.RecyclerView
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:id="@+id/button">
-        <TextView
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:id="@+id/day_of_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text = "TODAY">
-        </TextView>
-        <TextView
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/month"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nulshockbd"
-            android:text="NOV">
-        </TextView>
-        <TextView
+        >
 
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/day"
-            android:layout_margin="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="28sp"
-            android:fontFamily="@font/"
-            android:text="22">
-        </TextView>
-    </LinearLayout>
+    </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_movies"
         android:background="#FFFFFF"
