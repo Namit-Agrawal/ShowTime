@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import android.util.Log
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.Times
@@ -53,13 +53,15 @@ class MovieTimes : Fragment() {
 //
 //        [ (a, [10:30, 12:00]) , (b, [1:00])  ]
 
-
         var correct = organizeShowtimes(times)
-
-
-
+        var i = 0
+        while(i < correct.size)
+        {
+//            Log.d("Theatre Name", correct[i].theatreName)
+//            Log.d("List of times", correct[i].times.toString())
+            i++
+        }
         adapter.submitList(correct)
-
         return root
     }
 
@@ -70,6 +72,7 @@ class MovieTimes : Fragment() {
         var currentName= "blah"
 
         var index = 0
+        var dummy = 0
 
 
         while (index < times.size) {
@@ -80,30 +83,27 @@ class MovieTimes : Fragment() {
                 currentName = times[index].theatre.theatreId
                 //make the object and add to correct times
                 var current = TheatreTimes()
-
                 var nameIndex = 0
                 if (index != 0) {
+                    nameIndex = index
                     nameIndex--
                 }
-
                 current.theatreName =  times[nameIndex].theatre.name
                 current.times = currentList
+                
+                if(!currentName.equals("blah"))
+                    correct_times.add(current)
 
-                correct_times.add(current)
+                if(times[nameIndex].theatre.theatreId.equals("9489")) {
+                    Log.d("Theatre name:", times[nameIndex].theatre.name)
+                    Log.d("List of times:", currentList.toString())
+                }
                 currentList.clear()
 
             }
             index++
         }
         return correct_times
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MovieTimesViewModel::class.java)
-      //  val post = this.arguments?.getParcelable<MoviePost>("moviepost")
-
-
     }
 
     private fun initRecyclerView(root: View?): MovieTimesAdapter {

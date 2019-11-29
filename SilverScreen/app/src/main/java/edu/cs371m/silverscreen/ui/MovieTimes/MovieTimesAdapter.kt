@@ -2,6 +2,7 @@ package edu.cs371m.silverscreen.ui.MovieTimes
 
 import android.view.LayoutInflater
 import android.view.View
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TableRow
@@ -40,15 +41,17 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
 
             theatreName.text = item.theatreName
             var times = item.times
+
             var size = times.size
             var buttonsList = mutableListOf<Button>()
             var i = 0
             var rowNum=0
             while (i < size) {
                 var button = Button(itemView.context)
-                button.text= times[i]
+                button.text= times[i].substring(11)
                 //TODO: what is index????? how to insure no overlapping?
-                rowList[rowNum].addView(button, i % 4)
+                buttonsList.add(button)
+                rowList[rowNum].addView(button, i%4)
                 i++
                 if (i % 4 == 0) {
                     rowNum++
@@ -61,18 +64,18 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
         if (showtimes == null) {
             return 0
         }
-        return 1
+        return showtimes.size
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-
         holder.bind(showtimes[holder.adapterPosition])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.movie_times_row, parent, false)
-        return VH(itemView)    }
+        return VH(itemView)
+    }
 
     fun submitList(times: List<TheatreTimes?>) {
         showtimes = times

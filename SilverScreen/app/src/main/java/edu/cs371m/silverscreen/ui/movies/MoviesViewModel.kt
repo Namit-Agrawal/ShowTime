@@ -52,7 +52,7 @@ class MoviesViewModel : ViewModel() {
     ) {
         all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-11-28",
+                "2019-11-29",
                 "78701",
                 "10",
                 "bsj768xkm54t6wuchqxxrbrt"
@@ -62,7 +62,6 @@ class MoviesViewModel : ViewModel() {
 
     fun netFetchImage(thumbnail: String, imageView: ImageView, bool: Boolean) {
         Log.d("*************8", thumbnail)
-
         Glide.glideFetch(thumbnail, imageView, bool)
     }
 
