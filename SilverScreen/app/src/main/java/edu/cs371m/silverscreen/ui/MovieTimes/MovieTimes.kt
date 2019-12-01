@@ -44,7 +44,6 @@ class MovieTimes : Fragment() {
             ViewModelProviders.of(this).get(MovieTimesViewModel::class.java)
 
         val root = inflater.inflate(R.layout.movie_times_fragment, container, false)
-       // viewModel.netSubRefresh()
 
         val adapter = initRecyclerView(root)
         val post = this.arguments?.getParcelable<MoviePost>("moviepost")
@@ -122,7 +121,6 @@ class MovieTimes : Fragment() {
         rv.addItemDecoration(itemDecor)
         return adapter
     }
-
 
 
 }

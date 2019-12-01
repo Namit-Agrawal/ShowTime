@@ -29,7 +29,7 @@ suspend fun getTheatres(
     @Query("radius") radius: String,
     @Query("api_key") key: String) : List<TheatrePost>
 
-
+suspend fun getTimes
 
 
     data class MovieResponse(val results: List<MoviePost>)
