@@ -75,13 +75,23 @@ class MovieTimes : Fragment() {
 
             var currentTheatre = times[index].theatre.name
             var currentList = mutableListOf<String>()
-            currentList.add(times[index].time)
-            index++
+
 
             while (index <times.size) {
+
                 if (times[index].theatre.name?.equals(currentTheatre)) {
-                    //keep adding for this specfic theatre
                     currentList.add(times[index].time)
+                    // edge case
+                    if (index == times.size - 1) {
+
+                        var theatre = TheatreTimes()
+                        theatre.theatreName = currentTheatre
+                        theatre.times = currentList
+
+                        correct_times.add(theatre)
+
+                    }
+
                 } else {
                     //done with this particular theatre, add to list
                     var theatre = TheatreTimes()
@@ -97,7 +107,7 @@ class MovieTimes : Fragment() {
 
             }
         }
-
+        Log.d("message"," ********8"+ correct_times.size.toString() + " " +times.size.toString())
         return correct_times
     }
 
