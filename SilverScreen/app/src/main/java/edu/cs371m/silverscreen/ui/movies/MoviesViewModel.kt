@@ -2,7 +2,6 @@ package edu.cs371m.silverscreen.ui.movies
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Movie
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -15,30 +14,44 @@ import edu.cs371m.silverscreen.Glide.Glide
 import edu.cs371m.silverscreen.api.api.MovieApi
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.MovieRepository
+import edu.cs371m.silverscreen.api.api.TheatrePost
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.sql.Date
-import java.text.SimpleDateFormat
-import java.time.Instant.now
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 class MoviesViewModel : ViewModel() {
     private val movieApi = MovieApi.create()
     private val movieRepo = MovieRepository(movieApi)
 
-    var all_list = MutableLiveData<List<MoviePost>>().apply {
+    var movies_all_list = MutableLiveData<List<MoviePost>>().apply {
         value = mutableListOf()
     }
 
     var movie = MutableLiveData<MoviePost>().apply { value = null }
     var cast = MutableLiveData<MoviePost>().apply { value = null }
-
-    fun observeMovies(): LiveData<List<MoviePost>> {
-        return all_list
+    var zipcode = MutableLiveData<String>().apply { value = "78705" }
+    var theatre_all_list = MutableLiveData<List<TheatrePost>>().apply {
+        value = mutableListOf()
+    }
+    fun observeTheaters():LiveData<List<TheatrePost>> {
+        return theatre_all_list
     }
 
+
+    fun netSubTheatreRefresh()= viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO) {
+        theatre_all_list.postValue(movieRepo.fetchTheatre(zipcode.value!!, "10","bsj768xkm54t6wuchqxxrbrt" ))
+    }
+
+    fun observeMovies(): LiveData<List<MoviePost>> {
+        return movies_all_list
+    }
+    fun observeZip(): LiveData<String>{
+        return zipcode
+    }
+    fun updateZip(str: String)
+    {
+        zipcode.postValue(str)
+    }
     fun observeMovieInfo(): LiveData<MoviePost> {
         return movie
     }
@@ -50,10 +63,10 @@ class MoviesViewModel : ViewModel() {
     fun netSubRefresh() = viewModelScope.launch(
         context = viewModelScope.coroutineContext + Dispatchers.IO
     ) {
-        all_list.postValue(
+        movies_all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-11-29",
-                "78701",
+                "2019-12-01",
+                zipcode.value!!,
                 "10",
                 "bsj768xkm54t6wuchqxxrbrt"
             )
@@ -64,6 +77,8 @@ class MoviesViewModel : ViewModel() {
         Log.d("*************8", thumbnail)
         Glide.glideFetch(thumbnail, imageView, bool)
     }
+
+
 
     companion object {
         fun doMoviePost(context: Context, moviePost: MoviePost) {

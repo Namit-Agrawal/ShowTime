@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.container, HomeFragment())
-                        .addToBackStack(null)
                         // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit()
@@ -63,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.container, MoviesFragment())
-                        .addToBackStack(null)
                         // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit()
@@ -72,7 +70,6 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.container, TheatersFragment())
-                        .addToBackStack(null)
                         // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit()
@@ -82,7 +79,6 @@ class MainActivity : AppCompatActivity() {
                         .beginTransaction()
                         .replace(R.id.container, RecommendationsFragment())
                         // Let us pop image fragment by hitting the back button
-                        .addToBackStack(null)
                         // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit()
@@ -91,7 +87,6 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.container, AccountFragment())
-                        .addToBackStack(null)
                         // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit()

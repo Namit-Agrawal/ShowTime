@@ -15,6 +15,8 @@ data class MoviePost(
     val description: String,
     @SerializedName("topCast")
     val cast: List<String>,
+    @SerializedName("subType")
+    val type: String,
     @SerializedName("directors")
     val director: List<String>,
     @SerializedName("releaseDate")

@@ -1,6 +1,5 @@
 package edu.cs371m.silverscreen.ui.movies
 
-import android.graphics.Movie
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.core.view.isInvisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
@@ -65,7 +62,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        if(position==0)
+        if(position==0 || movies[position].type.equals("Theatre Event"))
         {
             holder.itemView.layoutParams= ViewGroup.LayoutParams(0,0)
         }

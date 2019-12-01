@@ -10,7 +10,6 @@ import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.ui.cast.*
 import edu.cs371m.silverscreen.ui.movie_times.MovieTimes
-import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
 import edu.cs371m.silverscreen.ui.trailer.Trailers
 import kotlinx.android.synthetic.main.activity_one_movie_post.*
 

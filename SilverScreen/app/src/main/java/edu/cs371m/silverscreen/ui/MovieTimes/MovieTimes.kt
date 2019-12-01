@@ -1,14 +1,11 @@
 package edu.cs371m.silverscreen.ui.movie_times
 
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +15,6 @@ import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.Times
 import edu.cs371m.silverscreen.ui.MovieTimes.MovieTimesAdapter
-import edu.cs371m.silverscreen.ui.cast.Cast
-import edu.cs371m.silverscreen.ui.movies.MovieRowAdapter
-import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
-import kotlinx.android.synthetic.main.movie_times_fragment.*
 
 class MovieTimes : Fragment() {
 
