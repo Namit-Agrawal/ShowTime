@@ -54,55 +54,50 @@ class MovieTimes : Fragment() {
 //        [ (a, [10:30, 12:00]) , (b, [1:00])  ]
 
         var correct = organizeShowtimes(times)
-        var i = 0
-        while(i < correct.size)
-        {
-//            Log.d("Theatre Name", correct[i].theatreName)
-//            Log.d("List of times", correct[i].times.toString())
-            i++
-        }
+      //  var i = 0
+//        while(i < correct.size)
+//        {
+////            Log.d("Theatre Name", correct[i].theatreName)
+////            Log.d("List of times", correct[i].times.toString())
+//            i++
+//        }
         adapter.submitList(correct)
         return root
     }
 
-    fun organizeShowtimes(times: List<Times>): List<TheatreTimes> {
+    private fun organizeShowtimes(times: List<Times>): List<TheatreTimes> {
         val correct_times = mutableListOf<TheatreTimes>()
 
-        var currentList = mutableListOf<String>()
-        var currentName= "blah"
-
         var index = 0
-        var dummy = 0
 
+        if (times.size > 0) {
+            //for the first object
 
-        while (index < times.size) {
-            if (times[index].theatre.theatreId?.equals(currentName)) {
-                currentList.add(times[index].time)
+            var currentTheatre = times[index].theatre.name
+            var currentList = mutableListOf<String>()
+            currentList.add(times[index].time)
+            index++
 
-            } else {
-                currentName = times[index].theatre.theatreId
-                //make the object and add to correct times
-                var current = TheatreTimes()
-                var nameIndex = 0
-                if (index != 0) {
-                    nameIndex = index
-                    nameIndex--
+            while (index <times.size) {
+                if (times[index].theatre.name?.equals(currentTheatre)) {
+                    //keep adding for this specfic theatre
+                    currentList.add(times[index].time)
+                } else {
+                    //done with this particular theatre, add to list
+                    var theatre = TheatreTimes()
+                    theatre.theatreName = currentTheatre
+                    theatre.times = currentList
+
+                    correct_times.add(theatre)
+                    //now keep track of new theatre
+                    currentTheatre = times[index].theatre.name
+                    currentList = mutableListOf()
                 }
-                current.theatreName =  times[nameIndex].theatre.name
-                current.times = currentList
-                
-                if(!currentName.equals("blah"))
-                    correct_times.add(current)
-
-                if(times[nameIndex].theatre.theatreId.equals("9489")) {
-                    Log.d("Theatre name:", times[nameIndex].theatre.name)
-                    Log.d("List of times:", currentList.toString())
-                }
-                currentList.clear()
+                index++
 
             }
-            index++
         }
+
         return correct_times
     }
 

@@ -52,7 +52,7 @@ class MoviesViewModel : ViewModel() {
     ) {
         all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-11-29",
+                "2019-12-01",
                 "78701",
                 "10",
                 "bsj768xkm54t6wuchqxxrbrt"
