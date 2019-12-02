@@ -20,10 +20,11 @@ import com.google.firebase.auth.FirebaseUser
 import edu.cs371m.silverscreen.R
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-
+import com.facebook.login.LoginManager
 
 
 import kotlinx.android.synthetic.main.fragment_account.*
+import java.util.*
 
 class AccountFragment : Fragment() {
 
@@ -59,6 +60,12 @@ class AccountFragment : Fragment() {
                     .setAvailableProviders(providers)
                     .build(),
                 1)
+        }
+        val facebook = root.findViewById<Button>(R.id.facebook)
+        facebook.setOnClickListener{
+
+
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
         }
 
         return root

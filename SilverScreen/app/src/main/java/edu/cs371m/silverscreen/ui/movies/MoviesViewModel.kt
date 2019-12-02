@@ -29,6 +29,7 @@ class MoviesViewModel : ViewModel() {
     var movie = MutableLiveData<MoviePost>().apply { value = null }
     var cast = MutableLiveData<MoviePost>().apply { value = null }
     var zipcode = MutableLiveData<String>().apply { value = "78705" }
+    var radius = MutableLiveData<String>().apply { value = "10" }
     var theatre_all_list = MutableLiveData<List<TheatrePost>>().apply {
         value = mutableListOf()
     }
@@ -39,7 +40,7 @@ class MoviesViewModel : ViewModel() {
 
     fun netSubTheatreRefresh()= viewModelScope.launch(
         context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        theatre_all_list.postValue(movieRepo.fetchTheatre(zipcode.value!!, "10","bsj768xkm54t6wuchqxxrbrt" ))
+        theatre_all_list.postValue(movieRepo.fetchTheatre(zipcode.value!!, radius.value!!,"bsj768xkm54t6wuchqxxrbrt" ))
     }
 
     fun observeMovies(): LiveData<List<MoviePost>> {
@@ -51,6 +52,13 @@ class MoviesViewModel : ViewModel() {
     fun updateZip(str: String)
     {
         zipcode.postValue(str)
+    }
+    fun observeRadius(): LiveData<String>{
+        return radius
+    }
+    fun updateRadius(str: String)
+    {
+        radius.postValue(str)
     }
     fun observeMovieInfo(): LiveData<MoviePost> {
         return movie
@@ -65,9 +73,9 @@ class MoviesViewModel : ViewModel() {
     ) {
         movies_all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-12-01",
+                "2019-12-02",
                 zipcode.value!!,
-                "10",
+                radius.value!!,
                 "bsj768xkm54t6wuchqxxrbrt"
             )
         )

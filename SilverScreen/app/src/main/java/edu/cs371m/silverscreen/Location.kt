@@ -37,7 +37,9 @@ class Location : Fragment() {
 
 
         search.setOnClickListener{
+
                 viewModel.updateZip(edit_zip.text.toString())
+                viewModel.updateRadius(edit_radius.text.toString())
 
 
             val frag = activity?.supportFragmentManager?.findFragmentByTag("location")

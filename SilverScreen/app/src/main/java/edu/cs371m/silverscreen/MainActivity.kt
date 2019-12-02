@@ -1,5 +1,6 @@
 package edu.cs371m.silverscreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -12,18 +13,40 @@ import androidx.appcompat.widget.Toolbar
 
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.facebook.*
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import edu.cs371m.silverscreen.ui.account.AccountFragment
 import edu.cs371m.silverscreen.ui.home.HomeFragment
 import edu.cs371m.silverscreen.ui.movies.MoviesFragment
 import edu.cs371m.silverscreen.ui.recommendation.RecommendationsFragment
 import edu.cs371m.silverscreen.ui.theaters.TheatersFragment
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+
+    lateinit var  callbackManager: CallbackManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        AppEventsLogger.activateApp(application)
         setContentView(R.layout.activity_main)
+        callbackManager = CallbackManager.Factory.create()
+        val EMAIL = "email"
+        val loginButton = findViewById<LoginButton>(R.id.login_button)
+        loginButton.setPermissions(Arrays.asList(EMAIL))
+        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+
+            }
+
+            override fun onCancel() {
+            }
+
+            override fun onError(error: FacebookException) {
+            }
+        })
         val mBar = this.findViewById<Toolbar>(R.id.toolbar)
         this.setSupportActionBar(mBar)
         this.supportActionBar.let {
@@ -102,5 +125,13 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_home, R.id.navigation_movies, R.id.navigation_theaters, R.id.navigation_recommendations, R.id.navigation_account))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
+        val accessToken = AccessToken.getCurrentAccessToken();
+        val isLoggedIn = accessToken != null && !accessToken.isExpired();
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+
     }
 }
