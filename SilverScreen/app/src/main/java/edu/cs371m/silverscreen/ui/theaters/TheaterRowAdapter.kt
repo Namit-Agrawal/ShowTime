@@ -21,6 +21,7 @@ class TheaterRowAdapter(private val viewModel: TheatersViewModel):RecyclerView.A
         init{
             post.setOnClickListener {
                 val position = adapterPosition
+                TheatersViewModel.doTheatrePost(itemView.context, theaters[position])
             }
         }
         fun bind(item: TheatrePost?) {

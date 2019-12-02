@@ -32,7 +32,13 @@ suspend fun getTheatres(
     @Query("api_key") key: String) : List<TheatrePost>
 
 
-
+@GET("v1.1/theatres/{theatreID}/showings")
+suspend fun getTimes(
+    @Path("theatreID") string: String,
+    @Query("startDate")startDate: String,
+    @Query("numDays")numDays: String,
+    @Query("api_key")key:String
+):List<MoviePost>
 
 
 

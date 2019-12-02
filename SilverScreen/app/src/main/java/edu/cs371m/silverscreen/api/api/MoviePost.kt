@@ -69,7 +69,7 @@ data class TheatrePost(
     @SerializedName("location")
     val loc: location,
     @SerializedName("telephone")
-    val phone: String
+    val phone: String?
 
 ):Parcelable
 

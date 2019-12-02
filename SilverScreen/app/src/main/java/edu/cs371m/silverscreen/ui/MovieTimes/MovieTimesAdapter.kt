@@ -30,6 +30,7 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
 
 
         fun bind(item :TheatreTimes?) {
+
             if (item == null) return
             var rowList = mutableListOf<TableRow>()
             rowList.add(r0)

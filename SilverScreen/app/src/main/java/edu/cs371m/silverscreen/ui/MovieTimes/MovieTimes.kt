@@ -50,6 +50,8 @@ class MovieTimes : Fragment() {
         val root = inflater.inflate(R.layout.movie_times_fragment, container, false)
 
         val adapter = initRecyclerView(root)
+
+
         val post = this.arguments?.getParcelable<MoviePost>("moviepost")
         val times = post!!.showtimes
 //        [ (a, 10:30) , (a, 12:00), (b, 1:00) ]
