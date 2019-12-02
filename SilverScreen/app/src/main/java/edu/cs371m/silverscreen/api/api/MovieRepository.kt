@@ -5,8 +5,8 @@ import java.util.*
 
 
 class MovieRepository(private val movieApi: MovieApi) {
-    suspend fun fetchResponse(date:String, zip: String, radius: String, key: String): List<MoviePost> {
-        return movieApi.getTopBefore(date, zip, radius, key)
+    suspend fun fetchResponse(date:String, zip: String, radius: String, days: String, key: String): List<MoviePost> {
+        return movieApi.getTopBefore(date, zip, radius, days, key)
     }
 
     suspend fun fetchTheatre(zip:String, radius: String, key: String): List<TheatrePost> {

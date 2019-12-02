@@ -55,6 +55,7 @@ class MoviesViewModel : ViewModel() {
                 "2019-12-01",
                 "78701",
                 "10",
+                "7",
                 "bsj768xkm54t6wuchqxxrbrt"
             )
         )

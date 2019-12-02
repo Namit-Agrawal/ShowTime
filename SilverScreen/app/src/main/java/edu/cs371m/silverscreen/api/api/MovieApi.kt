@@ -20,7 +20,9 @@ suspend fun getTopBefore(
     @Query("startDate")startDate: String,
     @Query("zip") zip :String,
     @Query("radius") radius: String,
+    @Query("numDays") days: String,
     @Query("api_key")key: String): List<MoviePost>
+
 
     @GET("v1.1/theatres")
 suspend fun getTheatres(
@@ -29,7 +31,9 @@ suspend fun getTheatres(
     @Query("radius") radius: String,
     @Query("api_key") key: String) : List<TheatrePost>
 
-suspend fun getTimes
+
+
+
 
 
     data class MovieResponse(val results: List<MoviePost>)

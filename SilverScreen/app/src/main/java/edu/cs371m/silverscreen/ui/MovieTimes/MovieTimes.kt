@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
+import android.widget.Button
+import android.widget.LinearLayout
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.Times
@@ -35,11 +37,13 @@ class MovieTimes : Fragment() {
         }    }
 
     private lateinit var viewModel: MovieTimesViewModel
+    private lateinit var date: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        date = "2019-12-01"
         viewModel =
             ViewModelProviders.of(this).get(MovieTimesViewModel::class.java)
 
@@ -52,19 +56,69 @@ class MovieTimes : Fragment() {
 //
 //        [ (a, [10:30, 12:00]) , (b, [1:00])  ]
 
+        //create buttons on click listeners
+        var day1 = root.findViewById<LinearLayout>(R.id.day1)
+        var day2 = root.findViewById<LinearLayout>(R.id.day2)
+        var day3 = root.findViewById<LinearLayout>(R.id.day3)
+        var day4 = root.findViewById<LinearLayout>(R.id.day4)
+        var day5 = root.findViewById<LinearLayout>(R.id.day5)
+        var day6 = root.findViewById<LinearLayout>(R.id.day6)
+        var day7 = root.findViewById<LinearLayout>(R.id.day7)
+
+        day1.setOnClickListener{
+            date = "2019-12-01"
+            var correct = organizeShowtimes(times)
+            if (correct != null)
+                adapter.submitList(correct)
+        }
+        day2.setOnClickListener{
+            date = "2019-12-02"
+            var correct = organizeShowtimes(times)
+            if (correct != null)
+
+            adapter.submitList(correct)
+        }
+        day3.setOnClickListener{
+            date = "2019-12-03"
+            var correct = organizeShowtimes(times)
+            if (correct != null)
+                adapter.submitList(correct)
+        }
+        day4.setOnClickListener{
+            date = "2019-12-04"
+            var correct = organizeShowtimes(times)
+            if (correct != null)
+                adapter.submitList(correct)
+        }
+        day5.setOnClickListener{
+            date = "2019-12-05"
+            var correct = organizeShowtimes(times)
+            if (correct != null)
+                adapter.submitList(correct)
+        }
+        day6.setOnClickListener{
+            date = "2019-12-06"
+            var correct = organizeShowtimes(times)
+            if (correct != null)
+                adapter.submitList(correct)
+        }
+        day7.setOnClickListener{
+            date = "2019-12-07"
+            var correct = organizeShowtimes(times)
+            if (correct != null)
+                adapter.submitList(correct)
+        }
+
         var correct = organizeShowtimes(times)
-      //  var i = 0
-//        while(i < correct.size)
-//        {
-////            Log.d("Theatre Name", correct[i].theatreName)
-////            Log.d("List of times", correct[i].times.toString())
-//            i++
-//        }
-        adapter.submitList(correct)
+        if (correct != null)
+            adapter.submitList(correct)
         return root
     }
 
-    private fun organizeShowtimes(times: List<Times>): List<TheatreTimes> {
+    private fun organizeShowtimes(times: List<Times>): List<TheatreTimes>? {
+        if (times == null) {
+            return null
+        }
         val correct_times = mutableListOf<TheatreTimes>()
 
         var index = 0
@@ -79,18 +133,17 @@ class MovieTimes : Fragment() {
             while (index <times.size) {
 
                 if (times[index].theatre.name?.equals(currentTheatre)) {
-                    currentList.add(times[index].time)
-                    // edge case
-                    if (index == times.size - 1) {
+                    if (times[index].time.substring(0,10).equals(date)) {
+                        currentList.add(times[index].time)
+                        // edge case
+                        if (index == times.size - 1) {
 
-                        var theatre = TheatreTimes()
-                        theatre.theatreName = currentTheatre
-                        theatre.times = currentList
-
-                        correct_times.add(theatre)
-
+                            var theatre = TheatreTimes()
+                            theatre.theatreName = currentTheatre
+                            theatre.times = currentList
+                            correct_times.add(theatre)
+                        }
                     }
-
                 } else {
                     //done with this particular theatre, add to list
                     var theatre = TheatreTimes()

@@ -17,7 +17,7 @@ import edu.cs371m.silverscreen.ui.movie_times.TheatreTimes
 
 class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
     RecyclerView.Adapter<MovieTimesAdapter.VH>() {
-    private lateinit var showtimes  : List<TheatreTimes?>
+    private lateinit var showtimes  : List<TheatreTimes>
 
     inner class VH(itemView: View)  : RecyclerView.ViewHolder(itemView) {
         var theatreName = itemView.findViewById<TextView>(R.id.theatre_name)
@@ -64,11 +64,11 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
         if (showtimes == null) {
             return 0
         }
-        return showtimes.size
+        return showtimes!!.size
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(showtimes[holder.adapterPosition])
+        holder.bind(showtimes!![holder.adapterPosition])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -77,8 +77,11 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
         return VH(itemView)
     }
 
-    fun submitList(times: List<TheatreTimes?>) {
-        showtimes = times
+    fun submitList(times: List<TheatreTimes>) {
+        if (times == null) {
+            return
+        }
+        showtimes = times!!
         notifyDataSetChanged()
 
     }
