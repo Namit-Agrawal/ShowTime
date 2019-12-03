@@ -51,7 +51,7 @@ class Location : Fragment() {
                 ?.beginTransaction()
                 ?.remove(frag!!)
                 ?.commit()
-            //viewModel.netSubRefresh()
+            viewModel.netSubRefresh()
 
         }
 

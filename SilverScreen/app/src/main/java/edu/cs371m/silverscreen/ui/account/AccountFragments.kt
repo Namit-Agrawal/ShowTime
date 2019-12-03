@@ -13,7 +13,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
 import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -25,7 +31,7 @@ import java.util.*
 class AccountFragment : Fragment() {
 
     private lateinit var dashboardViewModel: AccountViewModel
-
+    private lateinit var  callbackManager: CallbackManager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +40,22 @@ class AccountFragment : Fragment() {
         dashboardViewModel =
             ViewModelProviders.of(this).get(AccountViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_account, container, false)
+        callbackManager = CallbackManager.Factory.create()
+        val EMAIL = "email"
+        val loginButton = root.findViewById<LoginButton>(R.id.login_button)
+        loginButton.setPermissions(Arrays.asList(EMAIL))
+        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+
+            }
+
+            override fun onCancel() {
+            }
+
+            override fun onError(error: FacebookException) {
+            }
+        })
+
         val toolBar = root.findViewById<Toolbar>(R.id.toolbar)
         if(activity is AppCompatActivity){
             (activity as AppCompatActivity).setSupportActionBar(toolBar)
@@ -64,11 +86,15 @@ class AccountFragment : Fragment() {
 
             LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
         }
+        val accessToken = AccessToken.getCurrentAccessToken()
+        val isLoggedIn = accessToken != null && !accessToken.isExpired()
 
         return root
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             val response = IdpResponse.fromResultIntent(data)
@@ -102,4 +128,5 @@ class AccountFragment : Fragment() {
         }
         return res
     }
+
 }

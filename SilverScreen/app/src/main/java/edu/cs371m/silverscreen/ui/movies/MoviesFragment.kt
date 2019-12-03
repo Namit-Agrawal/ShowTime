@@ -109,13 +109,13 @@ class MoviesFragment : Fragment() {
                 }
                 viewModel.observeZip().observe(this, Observer {
                     Log.d("****************8", "Inside the obeserve   "+ it)
-                    viewModel.netSubRefresh()
+                    //viewModel.netSubRefresh()
                     location.text = it
                 })
 
             }
         }
-       // viewModel.netSubRefresh()
+       viewModel.netSubRefresh()
 
         val adapter = initRecyclerView(root)
         viewModel.observeMovies().observe(this, Observer {

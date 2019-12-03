@@ -34,21 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AppEventsLogger.activateApp(application)
         setContentView(R.layout.activity_main)
-        callbackManager = CallbackManager.Factory.create()
-        val EMAIL = "email"
-        val loginButton = findViewById<LoginButton>(R.id.login_button)
-        loginButton.setPermissions(Arrays.asList(EMAIL))
-        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
 
-            }
-
-            override fun onCancel() {
-            }
-
-            override fun onError(error: FacebookException) {
-            }
-        })
 
 
 
@@ -134,16 +120,11 @@ class MainActivity : AppCompatActivity() {
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
 
-        val accessToken = AccessToken.getCurrentAccessToken();
-        val isLoggedIn = accessToken != null && !accessToken.isExpired();
+
 
     }
 
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
 
-    }
 }

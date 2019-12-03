@@ -94,7 +94,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
     override fun onBindViewHolder(holder: VH, position: Int) {
         if(getItem(position).type.equals("Theatre Event"))
         {
-            holder.itemView.layoutParams= ViewGroup.LayoutParams(0,0)
+
         }
         else
             holder.bind(getItem(holder.adapterPosition))
