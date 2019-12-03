@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "752261084681",
+    "firebase_url": "https://silverscreen-37646.firebaseio.com",
+    "project_id": "silverscreen-37646",
+    "storage_bucket": "silverscreen-37646.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752261084681:android:62ff504c671b06b5ffead8",
+        "android_client_info": {
+          "package_name": "edu.cs371m.silverscreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752261084681-01prldveo7qt5h9qoajh06lnibt6tuar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.cs371m.silverscreen",
+            "certificate_hash": "3bd92604f97e94d218a1134ae8bae4163e3ebe46"
+          }
+        },
+        {
+          "client_id": "752261084681-lkrtffgjd8mh6o72r6mtgqp6ikgmh92l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzfcRxH1V1398sM9Hs0OkJm0ewbhP5oBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752261084681-lkrtffgjd8mh6o72r6mtgqp6ikgmh92l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

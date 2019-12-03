@@ -10,145 +10,177 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
     </androidx.appcompat.widget.Toolbar>
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/colorOrange"
+            android:text="facebook"
+            android:layout_weight="1"
+            android:id="@+id/facebook"
+            >
+        </Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Sign In"
+            android:background="@color/colorOrange"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/account_signin"
+            >
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:visibility="invisible"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/login"
+            android:background="@color/colorOrange"
+            >
+        </Button>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_weight="2"
+            android:layout_margin="5dp">
 
-            <Button
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
-                android:background="@color/colorOrange"
-                android:layout_weight="1"
-                android:textSize="20dp"
-                android:layout_marginLeft="15dp"
-                >
-            </Button>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                >
-            </Button>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:layout_weight="1"
-                android:textSize="20dp"
-                android:layout_marginRight="15dp"
+                android:background="@drawable/ic_local_activity_black_10dp"></ImageView>
 
-                android:background="@color/colorOrange"
-                >
-            </Button>
+            <TextView
+                android:layout_marginLeft="10dp"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:text="Purchased Tickets"
+                android:textSize="25dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_tag_faces_black_24dp"></ImageView>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                android:text="Friends"
+                android:textSize="25dp">
+            </TextView>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_contact_phone_black_24dp"></ImageView>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_marginLeft="10dp"
+
+                android:layout_height="match_parent"
+                android:text="HelpBot"
+                android:textSize="25dp">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_settings_black_24dp"></ImageView>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="match_parent"
+                android:text="Settings"
+                android:textSize="25dp">
+            </TextView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="20"
+
+            >
+            <TextView
+                android:id="@+id/userTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="2"
-                android:layout_margin="5dp">
-
-                <ImageView
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id = "@+id/displayNameET"
+                    android:layout_weight="2"
+                    >
+                </EditText>
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_local_activity_black_10dp"></ImageView>
+                    android:text="Set Display Name"
+                    android:id = "@+id/setDisplayName">
+                </Button>
 
-                <TextView
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="9"
-                    android:text="Purchased Tickets"
-                    android:textSize="25dp">
-
-                </TextView>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_tag_faces_black_24dp"></ImageView>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent"
-                    android:text="Friends"
-                    android:textSize="25dp">
-                </TextView>
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_contact_phone_black_24dp"></ImageView>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="9"
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_height="match_parent"
-                    android:text="HelpBot"
-                    android:textSize="25dp">
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_settings_black_24dp"></ImageView>
-
-                <TextView
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="0dp"
-                    android:layout_weight="9"
-                    android:layout_height="match_parent"
-                    android:text="Settings"
-                    android:textSize="25dp">
-                </TextView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="20"
-                ></LinearLayout>
-
         </LinearLayout>
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

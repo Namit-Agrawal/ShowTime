@@ -14,19 +14,22 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import edu.cs371m.silverscreen.Location
 import edu.cs371m.silverscreen.R
+import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
 
 class TheatersFragment : Fragment() {
 
-    private lateinit var viewModel: TheatersViewModel
+    private lateinit var viewModel: MoviesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel =
-                ViewModelProviders.of(this).get(TheatersViewModel::class.java)
+//        viewModel =
+//                ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+        viewModel = activity?.let { ViewModelProviders.of(it).get(MoviesViewModel::class.java) }!!
         val root = inflater.inflate(R.layout.fragment_theaters, container, false)
         val toolBar = root.findViewById<Toolbar>(R.id.toolbar)
         if(activity is AppCompatActivity){
@@ -38,9 +41,25 @@ class TheatersFragment : Fragment() {
                     layoutInflater.inflate(R.layout.actionbar_multiple, null)
                 // Apply the custom view
                 it?.customView = customView
+
+                val location = customView.findViewById<TextView>(R.id.location)
+                location.setOnClickListener{
+                    activity?.supportFragmentManager
+                        ?.beginTransaction()
+                        ?.replace(R.id.container, Location(), "location")
+                        ?.addToBackStack(null)
+                        ?.commit()
+                }
+                viewModel.observeZip().observe(this, Observer {
+                    viewModel.netSubTheatreRefresh()
+                    location.text = it
+                })
+
+
             }
         }
-        viewModel.netSubRefresh()
+
+//
         val adapter = initRecyclerView(root)
         viewModel.observeTheaters().observe(this, Observer {
                         adapter.submitList(it)

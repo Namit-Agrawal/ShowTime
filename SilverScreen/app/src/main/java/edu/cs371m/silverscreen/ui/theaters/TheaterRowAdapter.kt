@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.TheatrePost
+import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
 import kotlinx.android.synthetic.main.theaters_row.view.*
 
-class TheaterRowAdapter(private val viewModel: TheatersViewModel):RecyclerView.Adapter<TheaterRowAdapter.VH>() {
-    private var theaters = listOf<TheatrePost>()
+class TheaterRowAdapter(private val viewModel: MoviesViewModel):RecyclerView.Adapter<TheaterRowAdapter.VH>() {    private var theaters = listOf<TheatrePost>()
     inner class VH(itemView: View): RecyclerView.ViewHolder(itemView){
         var theatre = itemView.findViewById<TextView>(R.id.theatre_name)
         var address = itemView.findViewById<TextView>(R.id.address)

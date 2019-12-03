@@ -26,7 +26,9 @@ data class MoviePost(
     @SerializedName("ratings")
     val rating: List<Rating>,
     @SerializedName("showtimes")
-    val showtimes: List<Times>
+    val showtimes: List<Times>,
+    @SerializedName("subType")
+    val type: String
 ):Parcelable {
     fun getMovieList(list: List<String>): String {
         // XXX Write me
