@@ -112,7 +112,7 @@ class MoviesViewModel : ViewModel() {
     ) {
         movies_all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-12-02",
+                "2019-12-03",
                 zipcode.value!!,
                 radius.value!!,
                 "7",
@@ -142,7 +142,8 @@ class MoviesViewModel : ViewModel() {
         fun doTheatrePost(context: Context, post: TheatrePost) {
             val intent = Intent(context, OneTheatrePost::class.java)
             val myExtras = Bundle()
-            myExtras.putParcelable("theater_info", post)
+            Log.d("mesage in Theatre Post check if null", post.toString())
+            myExtras.putParcelable("theatre_info", post)
             intent.putExtras(myExtras)
             startActivity(context, intent, myExtras)
         }

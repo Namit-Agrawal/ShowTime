@@ -22,7 +22,7 @@ class TheaterRowAdapter(private val viewModel: MoviesViewModel):RecyclerView.Ada
         init{
             post.setOnClickListener {
                 val position = adapterPosition
-                TheatersViewModel.doTheatrePost(itemView.context, theaters[position])
+                MoviesViewModel.doTheatrePost(itemView.context, theaters[position])
             }
         }
         fun bind(item: TheatrePost?) {

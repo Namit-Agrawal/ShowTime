@@ -48,6 +48,13 @@
             android:id="@+id/date"
             android:textSize="12sp">
         </TextView>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_favorite_border_black_24dp"
+            android:id="@+id/favBut">
+
+        </ImageButton>
     </LinearLayout>
 
 </LinearLayout>

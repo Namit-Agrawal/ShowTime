@@ -37,7 +37,7 @@ class ShowtimesAdapter(private val viewModel: ShowtimesViewModel) : RecyclerView
 //        }
 
         fun bind(item: MoviePost) {
-            date= "2019-12-02"
+            date= "2019-12-03"
             if (item == null) return
             var rowList = mutableListOf<TableRow>()
             rowList.add(r0)

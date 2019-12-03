@@ -21,6 +21,8 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
 
     inner class VH(itemView: View)  : RecyclerView.ViewHolder(itemView) {
         var theatreName = itemView.findViewById<TextView>(R.id.theatre_name)
+        var distance = itemView.findViewById<TextView>(R.id.distance)
+        var addr = itemView.findViewById<TextView>(R.id.address)
         var r0 = itemView.findViewById<TableRow>(R.id.r0)
         var r1 = itemView.findViewById<TableRow>(R.id.r1)
         var r2 = itemView.findViewById<TableRow>(R.id.r2)

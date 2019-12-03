@@ -22,7 +22,7 @@ class OneTheatrePost:AppCompatActivity() {
 
         val callingBundle = intent.extras
         callingBundle?.apply {
-            post = intent.getParcelableExtra("theater_info")
+            post = intent.getParcelableExtra("theatre_info")
             if (post == null) {
                 return
             }

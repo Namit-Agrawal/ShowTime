@@ -43,7 +43,7 @@ class MovieTimes : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        date = "2019-12-01"
+        date = "2019-12-03"
         viewModel =
             ViewModelProviders.of(this).get(MovieTimesViewModel::class.java)
 
@@ -54,9 +54,6 @@ class MovieTimes : Fragment() {
 
         val post = this.arguments?.getParcelable<MoviePost>("moviepost")
         val times = post!!.showtimes
-//        [ (a, 10:30) , (a, 12:00), (b, 1:00) ]
-//
-//        [ (a, [10:30, 12:00]) , (b, [1:00])  ]
 
         //create buttons on click listeners
         var day1 = root.findViewById<LinearLayout>(R.id.day1)
@@ -182,6 +179,7 @@ class MovieTimes : Fragment() {
 
 class TheatreTimes {
      lateinit var theatreName :String
+
      lateinit var times: List<String>
 
 }

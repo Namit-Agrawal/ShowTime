@@ -3,6 +3,7 @@ package edu.cs371m.silverscreen.ui.movies;
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -88,6 +89,8 @@ class OneMoviePost : AppCompatActivity() {
                 .commit()
         }
     }
+
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item!!.itemId == android.R.id.home)
         {
