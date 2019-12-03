@@ -11,7 +11,8 @@ import edu.cs371m.silverscreen.api.api.TheatrePost
 import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
 import kotlinx.android.synthetic.main.theaters_row.view.*
 
-class TheaterRowAdapter(private val viewModel: MoviesViewModel):RecyclerView.Adapter<TheaterRowAdapter.VH>() {    private var theaters = listOf<TheatrePost>()
+class TheaterRowAdapter(private val viewModel: MoviesViewModel):RecyclerView.Adapter<TheaterRowAdapter.VH>() {
+    private var theaters = listOf<TheatrePost>()
     inner class VH(itemView: View): RecyclerView.ViewHolder(itemView){
         var theatre = itemView.findViewById<TextView>(R.id.theatre_name)
         var address = itemView.findViewById<TextView>(R.id.address)
@@ -38,6 +39,11 @@ class TheaterRowAdapter(private val viewModel: MoviesViewModel):RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
+        if(theaters[position].type!=null&&theaters[position].type.equals("Theatre Event"))
+        {
+            holder.itemView.layoutParams= ViewGroup.LayoutParams(0,0)
+        }
+        else
             holder.bind(theaters[holder.adapterPosition])
     }
 

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.Location
 import edu.cs371m.silverscreen.R
+import edu.cs371m.silverscreen.ui.myFavorites.Favorites
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 
@@ -33,7 +34,6 @@ class MoviesFragment : Fragment() {
             "PG-13",
             "R",
             "NR"
-
         )
     }
 
@@ -97,6 +97,15 @@ class MoviesFragment : Fragment() {
                         recycler_view_movies.visibility = View.VISIBLE
                     }
 
+                }
+
+                val myMovies = customView.findViewById<TextView>(R.id.favorites_upper)
+                myMovies.setOnClickListener {
+                    activity?.supportFragmentManager
+                        ?.beginTransaction()
+                        ?.replace(R.id.container, Favorites())
+                        ?.addToBackStack(null)
+                        ?.commit()
                 }
                 viewModel.observeZip().observe(this, Observer {
                     Log.d("****************8", "Inside the obeserve   "+ it)

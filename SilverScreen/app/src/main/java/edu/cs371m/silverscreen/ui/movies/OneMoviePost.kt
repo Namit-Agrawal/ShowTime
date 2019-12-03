@@ -4,6 +4,8 @@ package edu.cs371m.silverscreen.ui.movies;
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import edu.cs371m.silverscreen.R
@@ -23,6 +25,29 @@ class OneMoviePost : AppCompatActivity() {
         setContentView(R.layout.activity_one_movie_post)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        this.supportActionBar.let{
+            it?.setDisplayShowTitleEnabled(false)
+            it?.setDisplayShowCustomEnabled(true)
+            val customView: View =
+                layoutInflater.inflate(R.layout.onepostmovietoolbar, null)
+
+            // Apply the custom view
+            it?.customView = customView
+            val favorite = customView.findViewById<ImageButton>(R.id.favorite)
+            favorite.setOnClickListener{
+                if(viewModel.isFav(entireMoviePost)) {
+                    favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                    viewModel.removeFav(entireMoviePost)
+                }
+                else
+                {
+                    favorite.setImageResource(R.drawable.ic_favorite_black_24dp)
+                    viewModel.addFav(entireMoviePost)
+                }
+
+            }
+
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val intent = intent
         val callingBundle = intent.extras

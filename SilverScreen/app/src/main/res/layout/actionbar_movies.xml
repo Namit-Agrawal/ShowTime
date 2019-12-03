@@ -57,22 +57,7 @@
                         android:id="@+id/theater_upper"
                         android:layout_weight="1">
                     </TextView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="THIS WEEKEND"
-                        android:layout_marginStart="16dp"
-                        android:id="@+id/weekend_upper"
-                        android:layout_weight="1">
-                    </TextView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="COMING SOON"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:id="@+id/coming_upper">
-                    </TextView>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

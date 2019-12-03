@@ -37,6 +37,7 @@ class MoviesViewModel : ViewModel() {
 
     var movie = MutableLiveData<MoviePost>().apply { value = null }
     var cast = MutableLiveData<MoviePost>().apply { value = null }
+    var favorites = MutableLiveData<List<MoviePost>>().apply { value = mutableListOf() }
     var zipcode = MutableLiveData<String>().apply { value = "78705" }
     var radius = MutableLiveData<String>().apply { value = "10" }
     var theatre_all_list = MutableLiveData<List<TheatrePost>>().apply {
@@ -47,6 +48,39 @@ class MoviesViewModel : ViewModel() {
     }
     fun observeMovies(): LiveData<List<MoviePost>> {
         return movies_all_list
+    }
+    fun observeFavorites(): LiveData<List<MoviePost>>{
+        return favorites
+    }
+    fun isFav(item: MoviePost): Boolean
+    {
+        Log.d("mess","fek;lerferg")
+
+        if (favorites.value == null) {
+            return false
+        }
+        Log.d("message", favorites.value!!.size.toString() + "size is ")
+        return favorites.value!!.contains(item)
+    }
+    fun addFav(item: MoviePost)
+    {
+        val localList = favorites.value?.toMutableList()
+        localList?.let {
+            it.add(item)
+            favorites.value = it
+
+        }
+        Log.d("message", favorites.value!!.size.toString() + "size is* ")
+
+    }
+    fun removeFav(item: MoviePost)
+    {
+        val localList = favorites.value?.toMutableList()
+        localList?.let {
+            it.remove(item)
+            favorites.value = it
+
+        }
     }
 
 
@@ -78,7 +112,7 @@ class MoviesViewModel : ViewModel() {
     ) {
         movies_all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-12-01",
+                "2019-12-02",
                 zipcode.value!!,
                 radius.value!!,
                 "7",
