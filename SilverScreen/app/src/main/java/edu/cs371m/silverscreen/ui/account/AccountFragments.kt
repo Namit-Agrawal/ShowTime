@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.ui.movie_times.MovieTimesViewModel
@@ -123,7 +124,12 @@ class AccountFragment : Fragment() {
         val accessToken = AccessToken.getCurrentAccessToken()
         val isLoggedIn = accessToken != null && !accessToken.isExpired()
 
+
         return root
+
+
+
+
     }
 
 
@@ -148,48 +154,45 @@ class AccountFragment : Fragment() {
 
                 }
 
-                val metadata = user.metadata!!
-                Log.d(
-                    "metadata",
-                    metadata.creationTimestamp.toString() + "  " + metadata.lastSignInTimestamp
-                )
-                val currentUser = MoviesViewModel.User(
-                    user.displayName!!,
-                    user.email!!,
-                    "78705",
-                    listOf<String>()
-                )
-                database.collection("Users").document(user.uid).set(currentUser)
 
-                if (metadata.creationTimestamp == metadata.lastSignInTimestamp) {
-                    //new user
-                    //add new user
-                    val currentUser = MoviesViewModel.User(
-                        user.displayName!!,
-                        user.email!!,
-                        "78705",
-                        listOf<String>()
-                    )
-                    //database.
-                    //database.collection("Users").add(currentUser)
-                    database.collection("Users").document(user.uid).set(currentUser)
-                    Log.d(
-                        "here", "new user" +
-                                ""
-                    )
+                val docRef =database.collection("Users").document(user.uid)
+                docRef.get()
+                    .addOnSuccessListener { document ->
 
-                } else {
-                    //returning user, fetch their favorites, and tell the moviesViewModel
-                }
+                        if (document.exists()) {
+                            //returning doc
+                            val x = document.toObject(MoviesViewModel.User::class.java)
+                            Log.d("Inside document", x?.favs.toString())
+                            viewModel.updateUsersfavList(x!!.favs!!)
+
+
+                        } else {
+                            //new user logging in for the first time in forever
+                            val currentUser = MoviesViewModel.User(
+                                user.displayName!!,
+                                user.email!!,
+                                "78705",
+                                listOf<String>()
+                            )
+                            database.collection("Users").document(user.uid).set(currentUser)
+                            viewModel.updateUsersfavList(mutableListOf())
+                        }
+
+                    }
+                database.collection("Users")
+                    .whereEqualTo("email", user.email)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            Log.d("help", "${document.id} => ${document.data}")
+                        }
+                    }
 
                 //TODO set the user obj data AKA, fetch their zipcode, fetch favs, fetch username
                 viewModel.setUser(user)
                 // ...
             } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
+
             }
         }
     }

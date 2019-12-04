@@ -62,12 +62,18 @@ class MoviesViewModel : ViewModel() {
 
     var user = MutableLiveData<FirebaseUser>().apply {value = null}
 
+    var usersFavList = MutableLiveData<List<String>>().apply { value = mutableListOf() }
+
     fun observeUser():LiveData<FirebaseUser?> {
         return user
     }
 
     fun setUser(newUser: FirebaseUser?) {
         user.postValue(newUser)
+    }
+
+    fun updateUsersfavList(list: List<String>){
+        usersFavList.postValue(list)
     }
 
 //
@@ -84,10 +90,10 @@ class MoviesViewModel : ViewModel() {
 
 
     data class User(
-        var username: String,
-        var email: String,
-        var zipcode: String,
-        var favs: List<String>
+        var username: String? = null,
+        var email: String? = null,
+        var zipcode: String?= null,
+        var favs: List<String>? = null
     )
 
     fun observeTheaters():LiveData<List<TheatrePost>> {
@@ -125,15 +131,16 @@ class MoviesViewModel : ViewModel() {
 
         }
 
+        if (user.value != null) {
+            val db = FirebaseFirestore.getInstance()
+            //val currentUser = User(user.value!!.displayName!!,user.value!!.email!!, zipcode.value!!,listMoviesID)
 
-        val db = FirebaseFirestore.getInstance()
-        //val currentUser = User(user.value!!.displayName!!,user.value!!.email!!, zipcode.value!!,listMoviesID)
 
+            val userInfo = db.collection("Users").document(user.value!!.uid)
+            userInfo.update("favs", FieldValue.arrayUnion(item.id))
 
-        val userInfo = db.collection("Users").document(user.value!!.uid)
-        userInfo.update("favs", FieldValue.arrayUnion(item.id))
-
-        Log.d("message", favorites.value!!.size.toString() + "size is* ")
+            Log.d("message", favorites.value!!.size.toString() + "size is* ")
+        }
 
     }
 
@@ -145,8 +152,15 @@ class MoviesViewModel : ViewModel() {
             it.remove(item)
             favorites.value = it
 
-        }
 
+        }
+        if (user.value != null) {
+            val db = FirebaseFirestore.getInstance()
+
+
+            val userInfo = db.collection("Users").document(user.value!!.uid)
+            userInfo.update("favs", FieldValue.arrayRemove(item.id))
+        }
 
     }
 
