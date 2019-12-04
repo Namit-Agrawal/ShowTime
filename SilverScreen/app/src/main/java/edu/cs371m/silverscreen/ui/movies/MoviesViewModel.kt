@@ -105,11 +105,11 @@ class MoviesViewModel : ViewModel() {
         }
         var i = 0
         var listMoviesID = mutableListOf<String>()
-        while (i<0) {
+        while (i<favorites.value!!.size) {
             listMoviesID.add(localList!![i].id)
+            i++
         }
-        Log.d("adding fav", localList!!.size.toString())
-        writeNewUser("1","lucinda", "fake@gmail.com", listMoviesID, zipcode.value!! )
+        writeNewUser("01","lucinda", "fake@gmail.com", listMoviesID, zipcode.value!! )
 
 
         Log.d("message", favorites.value!!.size.toString() + "size is* ")
