@@ -64,3 +64,5 @@ class Favorites : Fragment() {
         rv.addItemDecoration(itemDecor)
         return adapter
     }}
+
+

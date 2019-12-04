@@ -2,6 +2,7 @@ package edu.cs371m.silverscreen.ui.account
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Movie
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,21 +27,35 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import edu.cs371m.silverscreen.R
+import edu.cs371m.silverscreen.api.api.MoviePost
+import edu.cs371m.silverscreen.ui.movie_times.MovieTimesViewModel
+import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import java.util.*
 
 class AccountFragment : Fragment() {
 
     private lateinit var dashboardViewModel: AccountViewModel
-    private lateinit var  callbackManager: CallbackManager
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var database: DatabaseReference
+    private lateinit var viewModel: MoviesViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(AccountViewModel::class.java)
+        database = FirebaseDatabase.getInstance().reference
+//        dashboardViewModel =
+//            ViewModelProviders.of(this).get(AccountViewModel::class.java)
+
+        viewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+
+
         val root = inflater.inflate(R.layout.fragment_account, container, false)
         callbackManager = CallbackManager.Factory.create()
         val EMAIL = "email"
@@ -56,8 +73,9 @@ class AccountFragment : Fragment() {
             }
         })
 
+
         val toolBar = root.findViewById<Toolbar>(R.id.toolbar)
-        if(activity is AppCompatActivity){
+        if (activity is AppCompatActivity) {
             (activity as AppCompatActivity).setSupportActionBar(toolBar)
             (activity as AppCompatActivity).supportActionBar.let {
                 it?.setDisplayShowTitleEnabled(false)
@@ -69,28 +87,44 @@ class AccountFragment : Fragment() {
             }
         }
 
+
         val sign_up = root.findViewById<Button>(R.id.account_signin)
-        sign_up.setOnClickListener{
-            val providers = arrayListOf(
-                AuthUI.IdpConfig.EmailBuilder().build())
-            startActivityForResult(
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setAvailableProviders(providers)
-                    .build(),
-                1)
+        sign_up.text = "Sign in/Sign out"
+
+        sign_up.setOnClickListener {
+            if (viewModel.observeUser().value == null) {
+                val providers = arrayListOf(
+                    AuthUI.IdpConfig.EmailBuilder().build()
+                )
+                startActivityForResult(
+                    AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                    1
+                )
+
+            } else {
+                viewModel.setUser(null)
+                FirebaseAuth.getInstance().signOut()
+                userTV.isVisible = false
+
+            }
+
         }
         val facebook = root.findViewById<Button>(R.id.facebook)
-        facebook.setOnClickListener{
+        facebook.setOnClickListener {
 
 
-            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+            LoginManager.getInstance()
+                .logInWithReadPermissions(this, Arrays.asList("public_profile"));
         }
         val accessToken = AccessToken.getCurrentAccessToken()
         val isLoggedIn = accessToken != null && !accessToken.isExpired()
 
         return root
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode, resultCode, data)
@@ -105,10 +139,12 @@ class AccountFragment : Fragment() {
                 var res = ""
                 res = getStuff(user!!)
                 userTV.setText(res)
-                setDisplayName.setOnClickListener{
+                setDisplayName.setOnClickListener {
                     var name = displayNameET.text.toString()
-                    userTV.setText("User: "+name+"\n"+"Email: "+user!!.email)
+                    userTV.setText("User: " + name + "\n" + "Email: " + user!!.email)
                 }
+                //TODO set the user obj data AKA, fetch their zipcode, fetch favs, fetch username
+                viewModel.setUser(user)
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the
@@ -118,15 +154,19 @@ class AccountFragment : Fragment() {
             }
         }
     }
-    fun getStuff(user: FirebaseUser? ): String{
+
+    fun getStuff(user: FirebaseUser?): String {
 
         var email = ""
         var res = ""
         if (user != null) {
             email = user.email!!
-            res = "User: "+user.displayName+"\n"+"Email: "+email
+            res = "User: " + user.displayName + "\n" + "Email: " + email
         }
         return res
     }
+
+
+
 
 }

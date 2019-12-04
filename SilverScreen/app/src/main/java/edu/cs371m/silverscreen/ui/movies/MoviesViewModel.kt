@@ -12,6 +12,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 import edu.cs371m.silverscreen.Glide.Glide
 import edu.cs371m.silverscreen.api.api.MovieApi
 import edu.cs371m.silverscreen.api.api.MoviePost
@@ -43,6 +45,37 @@ class MoviesViewModel : ViewModel() {
     var theatre_all_list = MutableLiveData<List<TheatrePost>>().apply {
         value = mutableListOf()
     }
+
+    var user = MutableLiveData<FirebaseUser>().apply {value = null}
+
+    fun observeUser():LiveData<FirebaseUser?> {
+        return user
+    }
+
+    fun setUser(newUser: FirebaseUser?) {
+        user.postValue(newUser)
+    }
+
+
+    fun writeNewUser(
+        userID: String, name: String, email: String,
+        favs: List<String>, zip: String
+    ) {
+        val user = User(name, email, zip, favs)
+        var database = FirebaseDatabase.getInstance().reference
+        database.child("users").child(userID).setValue(user)
+        Log.d("entering ", " database")
+    }
+
+
+
+    data class User(
+        var username: String,
+        var email: String,
+        var zipcode: String,
+        var favs: List<String>
+    )
+
     fun observeTheaters():LiveData<List<TheatrePost>> {
         return theatre_all_list
     }
@@ -70,9 +103,20 @@ class MoviesViewModel : ViewModel() {
             favorites.value = it
 
         }
+        var i = 0
+        var listMoviesID = mutableListOf<String>()
+        while (i<0) {
+            listMoviesID.add(localList!![i].id)
+        }
+        Log.d("adding fav", localList!!.size.toString())
+        writeNewUser("1","lucinda", "fake@gmail.com", listMoviesID, zipcode.value!! )
+
+
         Log.d("message", favorites.value!!.size.toString() + "size is* ")
 
     }
+
+
     fun removeFav(item: MoviePost)
     {
         val localList = favorites.value?.toMutableList()
@@ -130,6 +174,12 @@ class MoviesViewModel : ViewModel() {
         Log.d("*************8", thumbnail)
         Glide.glideFetch(thumbnail, imageView, bool)
     }
+
+
+
+
+
+
 
     companion object {
         fun doMoviePost(context: Context, moviePost: MoviePost) {
