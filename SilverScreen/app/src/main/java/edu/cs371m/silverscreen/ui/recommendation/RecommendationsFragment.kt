@@ -62,15 +62,20 @@ class RecommendationsFragment : Fragment() {
         }
 
         val adapter = initRecyclerView(root)
-        viewModel.observeAMovieForRec().observe(this, Observer {
-            if(viewModel.observeSearchRecommended().value!!.size>0)
+
+        viewModel.observeSearchRecommended().observe(this, Observer {
+            if(it.size>0)
             {
-                 Log.d("************************* MOVIE ID", viewModel.observeSearchRecommended().value!![0].movie_id.toString())
-                viewModel.updateId(viewModel.observeSearchRecommended().value!![0].movie_id)
-                viewModel.netSubRecommendedRefresh()
+                Log.d("************************* MOVIE ID", it[0].movie_id.toString())
+                viewModel.updateId(it[0].movie_id)
+                viewModel.observeID().observe(this, Observer {
+                    viewModel.netSubRecommendedRefresh()
+                })
+
+
             }
         })
-        viewModel.netSubRecommendedRefresh()
+
         viewModel.observeRecommended().observe(this, Observer {
             adapter.submitList(it)
         })

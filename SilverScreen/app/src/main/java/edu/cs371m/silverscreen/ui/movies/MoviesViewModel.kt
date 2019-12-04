@@ -50,12 +50,12 @@ class MoviesViewModel : ViewModel() {
 
 
     var movie = MutableLiveData<MoviePost>().apply { value = null }
-    var rec_movie = MutableLiveData<String>().apply { value = "Frozen II" }
+    var rec_movie = MutableLiveData<String>().apply { value = "" }
     var cast = MutableLiveData<MoviePost>().apply { value = null }
     var favorites = MutableLiveData<List<MoviePost>>().apply { value = mutableListOf() }
     var zipcode = MutableLiveData<String>().apply { value = "78705" }
     var radius = MutableLiveData<String>().apply { value = "10" }
-    var movieDBId = MutableLiveData<Int>().apply { value = 330457}
+    var movieDBId = MutableLiveData<Int>()
     var theatre_all_list = MutableLiveData<List<TheatrePost>>().apply {
         value = mutableListOf()
     }

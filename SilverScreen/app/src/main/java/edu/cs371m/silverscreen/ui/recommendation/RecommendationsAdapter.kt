@@ -38,7 +38,7 @@ class RecommendationsAdapter(private val viewModel: MoviesViewModel): RecyclerVi
             {
                 viewModel.netFetchImage("https://image.tmdb.org/t/p/w185/"+item.thumbnail, thumbnail, false)
             }
-
+            fav.visibility = View.INVISIBLE
 
         }
 
