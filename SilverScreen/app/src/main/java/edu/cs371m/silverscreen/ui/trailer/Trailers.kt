@@ -8,11 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 
 import edu.cs371m.silverscreen.R
+import edu.cs371m.silverscreen.api.api.MoviePost
 
 class Trailers : Fragment() {
 
     companion object {
-        fun newInstance() = Trailers()
+        fun newInstance(moviePost: MoviePost): Trailers{
+            val trailer = Trailers()
+            val b = Bundle()
+            b.putParcelable("moviepost", moviePost)
+            trailer.arguments =b
+            return trailer
+        }
     }
 
     private lateinit var viewModel: TrailersViewModel
@@ -21,13 +28,16 @@ class Trailers : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.movie_row, container, false)
+        return inflater.inflate(R.layout.fragment_movies, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TrailersViewModel::class.java)
-        // TODO: Use the ViewModel
+        val post = this.arguments?.getParcelable<MoviePost>("moviepost")
+        if (post != null) {
+
+        }
     }
 
 }

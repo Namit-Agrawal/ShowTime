@@ -17,16 +17,6 @@ import retrofit2.http.Query
 import java.util.*
 
 interface MovieDBApi {
-    //    @GET("v1.1/movies/showings?startDate=2019-11-17&zip=78701&api_key=bsj768xkm54t6wuchqxxrbrt")
-//    @GET("/3/movie/now_playing?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
-//    suspend fun getTopBefore(): MovieResponse
-//
-//    @GET("/3/movie/{movie_id}?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
-//    suspend fun getMovie(
-//        @Path("movie_id")movie_id:Int):MovieR
-//    @GET("/3/movie/{movie_id}/credits?api_key=f1e47867122912dbf25aa3bfcd06ebcb&region=US")
-//    suspend fun getCredits(
-//        @Path("movie_id")movie_id:Int):MovieR
 
     @GET("/3/search/movie/")
         suspend fun fetchSearchedMovies(
@@ -34,6 +24,12 @@ interface MovieDBApi {
             @Query("query")query: String
     ):MovieDBResponse
     data class MovieDBResponse(val results:List<MovieDBPost>)
+
+    @GET("/3/movie/{movie_id}/videos")
+    suspend fun fetchVideos(
+        @Path("movie_id") id: Int,
+        @Query("key") key: String
+    )
 
 
 
@@ -48,8 +44,8 @@ interface MovieDBApi {
             .scheme("https")
             .host("api.themoviedb.org")
             .build()
-        fun create(): MovieApi = create(httpurl)
-        private fun create(httpUrl: HttpUrl): MovieApi {
+        fun create(): MovieDBApi = create(httpurl)
+        private fun create(httpUrl: HttpUrl): MovieDBApi {
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply {
@@ -61,7 +57,7 @@ interface MovieDBApi {
                 .client(client)
                 .addConverterFactory(buildGsonConverterFactory())
                 .build()
-                .create(MovieApi::class.java)
+                .create(MovieDBApi::class.java)
         }
     }
 }
@@ -84,3 +80,15 @@ data class MovieDBPost
     val thumbnail:String
 
 ): Parcelable
+
+
+@Parcelize
+data class videoPost (
+    @SerializedName("key")
+    val video_key: String,
+    @SerializedName("site")
+    val site: String
+):Parcelable
+
+
+
