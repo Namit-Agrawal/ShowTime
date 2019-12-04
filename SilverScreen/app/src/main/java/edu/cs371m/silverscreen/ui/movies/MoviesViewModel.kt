@@ -13,7 +13,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import edu.cs371m.silverscreen.Glide.Glide
 import edu.cs371m.silverscreen.api.api.MovieApi
 import edu.cs371m.silverscreen.api.api.MoviePost
@@ -56,7 +59,7 @@ class MoviesViewModel : ViewModel() {
         user.postValue(newUser)
     }
 
-
+//
     fun writeNewUser(
         userID: String, name: String, email: String,
         favs: List<String>, zip: String
@@ -64,8 +67,27 @@ class MoviesViewModel : ViewModel() {
         val user = User(name, email, zip, favs)
         var database = FirebaseDatabase.getInstance().reference
         database.child("users").child(userID).setValue(user)
+
         Log.d("entering ", " database")
     }
+
+    fun fetchFavorites(user: FirebaseUser?) {
+        val favListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
+               // val fav = dataSnapshot.getValue(User::class.java)
+                // ...
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                // ...
+            }
+        }
+        //postReference.addValueEventListener(postListener)
+    }
+
 
 
 
@@ -109,8 +131,17 @@ class MoviesViewModel : ViewModel() {
             listMoviesID.add(localList!![i].id)
             i++
         }
-        writeNewUser("01","lucinda", "fake@gmail.com", listMoviesID, zipcode.value!! )
-
+        Log.d("message", user.value.toString() +"user is...")
+            //if no users, this will mess up
+        writeNewUser(user.value!!.uid, user.value!!.displayName!!,user.value!!.email!!,listMoviesID, zipcode.value!! )
+//
+//        var firebaseData = FirebaseDatabase.getInstance().reference
+//        firebaseData
+//            .child("users")
+//            .child(user.value!!.uid)
+//            .child("favs")
+//            .child(item.id)
+//            .setValue(true)
 
         Log.d("message", favorites.value!!.size.toString() + "size is* ")
 
@@ -125,6 +156,24 @@ class MoviesViewModel : ViewModel() {
             favorites.value = it
 
         }
+        var i = 0
+        var listMoviesID = mutableListOf<String>()
+        while (i<favorites.value!!.size) {
+            listMoviesID.add(localList!![i].id)
+            i++
+        }
+        Log.d("message", user.value.toString() +"user is...")
+        //if no users, this will mess up
+        writeNewUser(user.value!!.uid,user.value!!.displayName!!, user.value!!.email!!, listMoviesID, zipcode.value!! )
+
+//        var firebaseData = FirebaseDatabase.getInstance().reference
+//        firebaseData
+//            .child("users")
+//            .child(user.value!!.uid)
+//            .child("favs")
+//            .child(item.id)
+//            .setValue(null)
+
     }
 
 

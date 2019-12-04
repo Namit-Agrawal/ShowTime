@@ -44,6 +44,8 @@ class Favorites : Fragment() {
         // viewModel.netSubRefresh()
 
         val adapter = initRecyclerView(root)
+        //pull from the network, get favorites list, and update viewholder's favorites
+
 
         viewModel.observeFavorites().observe(this, Observer {
             Log.d("message", it.size.toString() + "inside favorites, size is")

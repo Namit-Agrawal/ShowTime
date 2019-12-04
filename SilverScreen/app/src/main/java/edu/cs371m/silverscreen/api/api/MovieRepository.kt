@@ -15,5 +15,7 @@ class MovieRepository(private val movieApi: MovieApi) {
     suspend fun fetchShowTimes(theatreID: String, date: String, numDays: String, key: String): List<MoviePost> {
         return movieApi.getTimes(theatreID, date, numDays, key)
     }
+
+
 }
 

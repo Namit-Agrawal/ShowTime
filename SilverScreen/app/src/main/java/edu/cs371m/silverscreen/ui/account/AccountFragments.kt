@@ -53,7 +53,7 @@ class AccountFragment : Fragment() {
 //        dashboardViewModel =
 //            ViewModelProviders.of(this).get(AccountViewModel::class.java)
 
-        viewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+        viewModel = activity?.let { ViewModelProviders.of(it).get(MoviesViewModel::class.java) }!!
 
 
         val root = inflater.inflate(R.layout.fragment_account, container, false)
@@ -142,6 +142,7 @@ class AccountFragment : Fragment() {
                 setDisplayName.setOnClickListener {
                     var name = displayNameET.text.toString()
                     userTV.setText("User: " + name + "\n" + "Email: " + user!!.email)
+
                 }
                 //TODO set the user obj data AKA, fetch their zipcode, fetch favs, fetch username
                 viewModel.setUser(user)

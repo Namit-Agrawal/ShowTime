@@ -66,38 +66,6 @@ class MoviesFragment : Fragment() {
                         ?.addToBackStack(null)
                         ?.commit()
                 }
-//                filterBut.setOnClickListener{
-//                    if(theListView.visibility == View.INVISIBLE) {
-//                        recycler_view_movies.visibility = View.INVISIBLE
-//                        theListView.visibility = View.VISIBLE
-//                        val theAdapter = ArrayAdapter<String>(
-//                            activity!!,
-//                            android.R.layout.simple_list_item_multiple_choice,
-//                            android.R.id.text1,
-//                            ratings
-//                        )
-//
-//                        // ListViews display data in a scrollable list
-//                        // Tells the ListView what data to use
-//                        theListView.adapter = theAdapter
-//
-//                        theListView.setOnItemClickListener { parent, view, position, id ->
-//                            val albumPicked =
-//                                String.format(
-//                                    "%s %d %s",
-//                                    "You selected item",
-//                                    position,
-//                                    parent.getItemAtPosition(position)
-//                                )
-//                        }
-//                    }
-//                    else {
-//
-//                        theListView.visibility = View.INVISIBLE
-//                        recycler_view_movies.visibility = View.VISIBLE
-//                    }
-//
-//                }
 
                 val myMovies = customView.findViewById<TextView>(R.id.favorites_upper)
                 myMovies.setOnClickListener {
