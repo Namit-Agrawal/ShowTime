@@ -17,6 +17,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import edu.cs371m.silverscreen.Glide.Glide
 import edu.cs371m.silverscreen.api.api.*
 import edu.cs371m.silverscreen.ui.theaters.OneTheatrePost
@@ -80,25 +82,6 @@ class MoviesViewModel : ViewModel() {
         Log.d("entering ", " database")
     }
 
-    fun fetchFavorites(user: FirebaseUser?) {
-        val favListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Get Post object and use the values to update the UI
-               // val fav = dataSnapshot.getValue(User::class.java)
-                // ...
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
-                // ...
-            }
-        }
-        //postReference.addValueEventListener(postListener)
-    }
-
-
-
 
     data class User(
         var username: String,
@@ -141,23 +124,14 @@ class MoviesViewModel : ViewModel() {
             favorites.value = it
 
         }
-//        var i = 0
-//        var listMoviesID = mutableListOf<String>()
-//        while (i<favorites.value!!.size) {
-//            listMoviesID.add(localList!![i].id)
-//            i++
-//        }
-//        Log.d("message", user.value.toString() +"user is...")
-            //if no users, this will mess up
-        //writeNewUser(user.value!!.uid, user.value!!.displayName!!,user.value!!.email!!,listMoviesID, zipcode.value!! )
-//
-//        var firebaseData = FirebaseDatabase.getInstance().reference
-//        firebaseData
-//            .child("users")
-//            .child(user.value!!.uid)
-//            .child("favs")
-//            .child(item.id)
-//            .setValue(true)
+
+
+        val db = FirebaseFirestore.getInstance()
+        //val currentUser = User(user.value!!.displayName!!,user.value!!.email!!, zipcode.value!!,listMoviesID)
+
+
+        val userInfo = db.collection("Users").document(user.value!!.uid)
+        userInfo.update("favs", FieldValue.arrayUnion(item.id))
 
         Log.d("message", favorites.value!!.size.toString() + "size is* ")
 
@@ -172,23 +146,7 @@ class MoviesViewModel : ViewModel() {
             favorites.value = it
 
         }
-//        var i = 0
-//        var listMoviesID = mutableListOf<String>()
-//        while (i<favorites.value!!.size) {
-//            listMoviesID.add(localList!![i].id)
-//            i++
-//        }
-//        Log.d("message", user.value.toString() +"user is...")
-//        //if no users, this will mess up
-//        writeNewUser(user.value!!.uid,user.value!!.displayName!!, user.value!!.email!!, listMoviesID, zipcode.value!! )
 
-//        var firebaseData = FirebaseDatabase.getInstance().reference
-//        firebaseData
-//            .child("users")
-//            .child(user.value!!.uid)
-//            .child("favs")
-//            .child(item.id)
-//            .setValue(null)
 
     }
 

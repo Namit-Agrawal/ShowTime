@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Movie
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.ui.movie_times.MovieTimesViewModel
@@ -41,7 +43,7 @@ class AccountFragment : Fragment() {
 
     private lateinit var dashboardViewModel: AccountViewModel
     private lateinit var callbackManager: CallbackManager
-    private lateinit var database: DatabaseReference
+    private lateinit var database: FirebaseFirestore
     private lateinit var viewModel: MoviesViewModel
 
     override fun onCreateView(
@@ -49,9 +51,8 @@ class AccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        database = FirebaseDatabase.getInstance().reference
-//        dashboardViewModel =
-//            ViewModelProviders.of(this).get(AccountViewModel::class.java)
+        database = FirebaseFirestore.getInstance()
+
 
         viewModel = activity?.let { ViewModelProviders.of(it).get(MoviesViewModel::class.java) }!!
 
@@ -134,6 +135,8 @@ class AccountFragment : Fragment() {
             val response = IdpResponse.fromResultIntent(data)
 
             if (resultCode == Activity.RESULT_OK) {
+                val auth = FirebaseAuth.getInstance()
+                auth.currentUser
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 var res = ""
@@ -144,6 +147,41 @@ class AccountFragment : Fragment() {
                     userTV.setText("User: " + name + "\n" + "Email: " + user!!.email)
 
                 }
+
+                val metadata = user.metadata!!
+                Log.d(
+                    "metadata",
+                    metadata.creationTimestamp.toString() + "  " + metadata.lastSignInTimestamp
+                )
+                val currentUser = MoviesViewModel.User(
+                    user.displayName!!,
+                    user.email!!,
+                    "78705",
+                    listOf<String>()
+                )
+                database.collection("Users").document(user.uid).set(currentUser)
+
+                if (metadata.creationTimestamp == metadata.lastSignInTimestamp) {
+                    //new user
+                    //add new user
+                    val currentUser = MoviesViewModel.User(
+                        user.displayName!!,
+                        user.email!!,
+                        "78705",
+                        listOf<String>()
+                    )
+                    //database.
+                    //database.collection("Users").add(currentUser)
+                    database.collection("Users").document(user.uid).set(currentUser)
+                    Log.d(
+                        "here", "new user" +
+                                ""
+                    )
+
+                } else {
+                    //returning user, fetch their favorites, and tell the moviesViewModel
+                }
+
                 //TODO set the user obj data AKA, fetch their zipcode, fetch favs, fetch username
                 viewModel.setUser(user)
                 // ...
@@ -164,10 +202,12 @@ class AccountFragment : Fragment() {
             email = user.email!!
             res = "User: " + user.displayName + "\n" + "Email: " + email
         }
+
+
+
         return res
     }
-
-
-
-
 }
+
+
+

@@ -1,5 +1,6 @@
 package edu.cs371m.silverscreen.api.api
 
+
 import com.google.gson.Gson
 import java.util.*
 
@@ -13,7 +14,9 @@ class MovieDBRepository(private val movieApi: MovieDBApi) {
         return movieApi.fetchRecommendedMovies(id, key).results
     }
 
-
+    suspend fun fetchTrailer(id: Int, key: String): List<videoPost>{
+        return movieApi.fetchVideos(id, key).results
+    }
 
 
 }

@@ -1,4 +1,3 @@
-
 package edu.cs371m.silverscreen.api.api
 import android.graphics.Movie
 import android.os.Parcelable
@@ -32,12 +31,12 @@ interface MovieDBApi {
 
 
     data class MovieDBResponse(val results:List<MovieDBPost>)
-
+    data class MovieDBVideo(val results: List<videoPost>)
     @GET("/3/movie/{movie_id}/videos")
     suspend fun fetchVideos(
         @Path("movie_id") id: Int,
-        @Query("key") key: String
-    )
+        @Query("api_key") key: String
+    ): MovieDBVideo
 
 
 
@@ -95,7 +94,9 @@ data class videoPost (
     @SerializedName("key")
     val video_key: String,
     @SerializedName("site")
-    val site: String
+    val site: String,
+    @SerializedName("name")
+    val name:String
 ):Parcelable
 
 

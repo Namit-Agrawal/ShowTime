@@ -69,11 +69,11 @@ class OneMoviePost : AppCompatActivity() {
 
         mov_title.text = movie_title
         duration_lay.text = duration
-        viewModel.netFetchImage(img, movie_thumbnail, true)
+       // viewModel.netFetchImage(img, movie_thumbnail, true)
         movie_trailers.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.frag, Trailers.newInstance())
+                .replace(R.id.frag, Trailers.newInstance(entireMoviePost))
                 .commit()
         }
         movie_info.setOnClickListener {
