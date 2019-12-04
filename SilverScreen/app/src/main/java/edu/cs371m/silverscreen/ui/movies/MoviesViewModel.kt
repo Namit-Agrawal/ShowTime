@@ -18,10 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import edu.cs371m.silverscreen.Glide.Glide
-import edu.cs371m.silverscreen.api.api.MovieApi
-import edu.cs371m.silverscreen.api.api.MoviePost
-import edu.cs371m.silverscreen.api.api.MovieRepository
-import edu.cs371m.silverscreen.api.api.TheatrePost
+import edu.cs371m.silverscreen.api.api.*
 import edu.cs371m.silverscreen.ui.theaters.OneTheatrePost
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,16 +32,28 @@ import java.util.*
 class MoviesViewModel : ViewModel() {
     private val movieApi = MovieApi.create()
     private val movieRepo = MovieRepository(movieApi)
+    private val movieDbApi = MovieDBApi.create()
+    private val movieDBRepo = MovieDBRepository(movieDbApi)
 
     var movies_all_list = MutableLiveData<List<MoviePost>>().apply {
         value = mutableListOf()
     }
+    var recommended_all_list = MutableLiveData<List<MovieDBPost>>().apply {
+        value = mutableListOf()
+    }
+
+    var rec_search = MutableLiveData<List<MovieDBPost>>().apply {
+        value = mutableListOf()
+    }
+
 
     var movie = MutableLiveData<MoviePost>().apply { value = null }
+    var rec_movie = MutableLiveData<String>().apply { value = "Frozen II" }
     var cast = MutableLiveData<MoviePost>().apply { value = null }
     var favorites = MutableLiveData<List<MoviePost>>().apply { value = mutableListOf() }
     var zipcode = MutableLiveData<String>().apply { value = "78705" }
     var radius = MutableLiveData<String>().apply { value = "10" }
+    var movieDBId = MutableLiveData<Int>().apply { value = 330457}
     var theatre_all_list = MutableLiveData<List<TheatrePost>>().apply {
         value = mutableListOf()
     }
@@ -104,6 +113,13 @@ class MoviesViewModel : ViewModel() {
     fun observeMovies(): LiveData<List<MoviePost>> {
         return movies_all_list
     }
+    fun observeRecommended(): LiveData<List<MovieDBPost>>{
+        return recommended_all_list
+    }
+
+    fun observeSearchRecommended(): LiveData<List<MovieDBPost>>{
+        return rec_search
+    }
     fun observeFavorites(): LiveData<List<MoviePost>>{
         return favorites
     }
@@ -125,15 +141,15 @@ class MoviesViewModel : ViewModel() {
             favorites.value = it
 
         }
-        var i = 0
-        var listMoviesID = mutableListOf<String>()
-        while (i<favorites.value!!.size) {
-            listMoviesID.add(localList!![i].id)
-            i++
-        }
-        Log.d("message", user.value.toString() +"user is...")
+//        var i = 0
+//        var listMoviesID = mutableListOf<String>()
+//        while (i<favorites.value!!.size) {
+//            listMoviesID.add(localList!![i].id)
+//            i++
+//        }
+//        Log.d("message", user.value.toString() +"user is...")
             //if no users, this will mess up
-        writeNewUser(user.value!!.uid, user.value!!.displayName!!,user.value!!.email!!,listMoviesID, zipcode.value!! )
+        //writeNewUser(user.value!!.uid, user.value!!.displayName!!,user.value!!.email!!,listMoviesID, zipcode.value!! )
 //
 //        var firebaseData = FirebaseDatabase.getInstance().reference
 //        firebaseData
@@ -156,15 +172,15 @@ class MoviesViewModel : ViewModel() {
             favorites.value = it
 
         }
-        var i = 0
-        var listMoviesID = mutableListOf<String>()
-        while (i<favorites.value!!.size) {
-            listMoviesID.add(localList!![i].id)
-            i++
-        }
-        Log.d("message", user.value.toString() +"user is...")
-        //if no users, this will mess up
-        writeNewUser(user.value!!.uid,user.value!!.displayName!!, user.value!!.email!!, listMoviesID, zipcode.value!! )
+//        var i = 0
+//        var listMoviesID = mutableListOf<String>()
+//        while (i<favorites.value!!.size) {
+//            listMoviesID.add(localList!![i].id)
+//            i++
+//        }
+//        Log.d("message", user.value.toString() +"user is...")
+//        //if no users, this will mess up
+//        writeNewUser(user.value!!.uid,user.value!!.displayName!!, user.value!!.email!!, listMoviesID, zipcode.value!! )
 
 //        var firebaseData = FirebaseDatabase.getInstance().reference
 //        firebaseData
@@ -181,12 +197,28 @@ class MoviesViewModel : ViewModel() {
     fun observeZip(): LiveData<String>{
         return zipcode
     }
+
+    fun observeAMovieForRec(): LiveData<String>{
+        return rec_movie
+    }
+
+    fun updateAMovieForRec(str: String)
+    {
+        rec_movie.postValue(str)
+        Log.d("*******************************************************",rec_movie.value!!)
+    }
     fun updateZip(str: String)
     {
         zipcode.postValue(str)
     }
     fun observeRadius(): LiveData<String>{
         return radius
+    }
+    fun observeID(): LiveData<Int>{
+        return movieDBId
+    }
+    fun updateId(i: Int){
+        movieDBId.postValue(i)
     }
     fun updateRadius(str: String)
     {
@@ -214,6 +246,23 @@ class MoviesViewModel : ViewModel() {
         )
     }
 
+    fun netSubRecommendedRefresh() = viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO
+    ) {
+
+        recommended_all_list.postValue(
+            movieDBRepo.fetchRec(movieDBId.value!!, "f1e47867122912dbf25aa3bfcd06ebcb")
+        )
+    }
+
+    fun netSubRecommendedSearchRefresh() = viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO
+    ) {
+        rec_search.postValue(
+            movieDBRepo.fetchResponse(rec_movie.value!!, "f1e47867122912dbf25aa3bfcd06ebcb")
+        )
+    }
+
     fun netSubTheatreRefresh()= viewModelScope.launch(
         context = viewModelScope.coroutineContext + Dispatchers.IO) {
         theatre_all_list.postValue(movieRepo.fetchTheatre(zipcode.value!!, radius.value!!,"bsj768xkm54t6wuchqxxrbrt" ))
@@ -223,6 +272,7 @@ class MoviesViewModel : ViewModel() {
         Log.d("*************8", thumbnail)
         Glide.glideFetch(thumbnail, imageView, bool)
     }
+
 
 
 

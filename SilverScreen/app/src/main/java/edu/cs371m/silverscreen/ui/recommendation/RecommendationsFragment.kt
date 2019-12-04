@@ -1,11 +1,16 @@
 package edu.cs371m.silverscreen.ui.recommendation
 
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import edu.cs371m.silverscreen.Location
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.ui.movies.MovieRowAdapter
 import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
@@ -25,20 +31,51 @@ class RecommendationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel =
-            ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+        viewModel = activity?.let { ViewModelProviders.of(it).get(MoviesViewModel::class.java) }!!
         val root = inflater.inflate(R.layout.fragment_recommendations, container, false)
+        val toolBar = root.findViewById<Toolbar>(R.id.toolbar)
         if(activity is AppCompatActivity){
-            val act = (activity as AppCompatActivity).supportActionBar
-            act?.hide()
+            (activity as AppCompatActivity).setSupportActionBar(toolBar)
+            (activity as AppCompatActivity).supportActionBar.let {
+                it?.setDisplayShowTitleEnabled(false)
+                it?.setDisplayShowCustomEnabled(true)
+                val customView: View =
+                    layoutInflater.inflate(R.layout.actionbar_recommended, null)
+                // Apply the custom view
+                it?.customView = customView
+
+                val rec = customView.findViewById<EditText>(R.id.get_Rec)
+
+                rec.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+                    override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                            viewModel.updateAMovieForRec(rec.text.toString())
+                            viewModel.netSubRecommendedSearchRefresh()
+
+                            return true
+                        }
+                        return false
+                    }
+                })
+
+            }
         }
 
-
-
         val adapter = initRecyclerView(root)
-//        viewModel.observeMovies().observe(this, Observer {
-//            adapter.submitList(it)
-//        })
+        viewModel.observeAMovieForRec().observe(this, Observer {
+            if(viewModel.observeSearchRecommended().value!!.size>0)
+            {
+                 Log.d("************************* MOVIE ID", viewModel.observeSearchRecommended().value!![0].movie_id.toString())
+                viewModel.updateId(viewModel.observeSearchRecommended().value!![0].movie_id)
+                viewModel.netSubRecommendedRefresh()
+            }
+        })
+        viewModel.netSubRecommendedRefresh()
+        viewModel.observeRecommended().observe(this, Observer {
+            adapter.submitList(it)
+        })
+
+
         return root
     }
 

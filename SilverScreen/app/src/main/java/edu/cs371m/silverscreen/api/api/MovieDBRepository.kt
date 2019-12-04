@@ -9,6 +9,10 @@ class MovieDBRepository(private val movieApi: MovieDBApi) {
         return movieApi.fetchSearchedMovies(key, query).results
     }
 
+    suspend fun fetchRec(id: Int, key: String): List<MovieDBPost>{
+        return movieApi.fetchRecommendedMovies(id, key).results
+    }
+
 
 
 

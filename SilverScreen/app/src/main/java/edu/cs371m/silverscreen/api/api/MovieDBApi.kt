@@ -30,9 +30,17 @@ interface MovieDBApi {
 
     @GET("/3/search/movie/")
         suspend fun fetchSearchedMovies(
-            @Query("api_key")key:String,
-            @Query("query")query: String
+        @Query("api_key")key:String,
+        @Query("query")query: String
     ):MovieDBResponse
+
+    @GET("/3/movie/{movie_id}/recommendations")
+    suspend fun fetchRecommendedMovies(
+        @Path("movie_id") id: Int,
+        @Query("api_key") key: String) :MovieDBResponse
+
+
+
     data class MovieDBResponse(val results:List<MovieDBPost>)
 
 
@@ -48,8 +56,8 @@ interface MovieDBApi {
             .scheme("https")
             .host("api.themoviedb.org")
             .build()
-        fun create(): MovieApi = create(httpurl)
-        private fun create(httpUrl: HttpUrl): MovieApi {
+        fun create(): MovieDBApi = create(httpurl)
+        private fun create(httpUrl: HttpUrl): MovieDBApi {
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply {
@@ -61,7 +69,7 @@ interface MovieDBApi {
                 .client(client)
                 .addConverterFactory(buildGsonConverterFactory())
                 .build()
-                .create(MovieApi::class.java)
+                .create(MovieDBApi::class.java)
         }
     }
 }

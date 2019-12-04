@@ -32,18 +32,11 @@ class RecommendationsAdapter(private val viewModel: MoviesViewModel): RecyclerVi
                 return;
             }
             movieTitleText.text = item.movieName
-            date.text = item.date
-//            MovieViewModel.netCreditRefresh(item.movie_id)
-//            MovieViewModel.netMovieRefresh(item.movie_id)
-            // val cast = MovieViewModel.observeCast().observe(fragment, Observer {  })
 
-            // durationText.text = movie?.duration.toString() + "minutes"
 
-//            val cast_array = cast!!.cast
-//            actors.text = cast_array[0].actor +", " +cast_array[1].actor
             if(item.thumbnail!=null)
             {
-                viewModel.netFetchImage(item.thumbnail, thumbnail, false)
+                viewModel.netFetchImage("https://image.tmdb.org/t/p/w185/"+item.thumbnail, thumbnail, false)
             }
 
 
