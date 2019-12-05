@@ -73,7 +73,7 @@ class OneMoviePost : AppCompatActivity() {
 
         mov_title.text = movie_title
         duration_lay.text = duration
-        viewModel.netFetchImage(img, movie_thumbnail, true)
+        //viewModel.netFetchImage(img, movie_thumbnail, true)
         movie_trailers.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
@@ -94,16 +94,14 @@ class OneMoviePost : AppCompatActivity() {
         }
 
 
-             val con = ShareLinkContent.Builder()
-
-             val bitmap = movie_thumbnail.drawable.toBitmap()
-             val photo = SharePhoto.Builder()
-                 .setBitmap(bitmap)
-                 .build()
-             val content = SharePhotoContent.Builder()
-                 .addPhoto(photo)
-                 .build()
-             share.shareContent = content
+        val bitmap = movie_thumbnail.drawable.toBitmap()
+        val photo = SharePhoto.Builder()
+            .setBitmap(bitmap)
+            .build()
+        val content = SharePhotoContent.Builder()
+            .addPhoto(photo)
+            .build()
+        share.shareContent = content
 
 
     }
