@@ -12,6 +12,7 @@ import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 class ShowtimesViewModel : ViewModel() {
     // TODO: Implement the ViewModel
@@ -29,7 +30,10 @@ class ShowtimesViewModel : ViewModel() {
         context = viewModelScope.coroutineContext + Dispatchers.IO
     ) {
         showtimes.postValue(
-            movieRepo.fetchShowTimes(theatreId,"2019-12-02", "7", "bsj768xkm54t6wuchqxxrbrt")
+           // var time = LocalDateTime.now()
+        //get an array of the correct date ready to be used
+           // var date = time.toString().substring(0,10)
+            movieRepo.fetchShowTimes(theatreId,LocalDateTime.now().toString().substring(0,10), "7", "bsj768xkm54t6wuchqxxrbrt")
             )
     }
 
@@ -37,7 +41,5 @@ class ShowtimesViewModel : ViewModel() {
         Log.d("*************8", thumbnail)
         Glide.glideFetch(thumbnail, imageView, bool)
     }
-
-
 
 }

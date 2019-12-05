@@ -13,6 +13,7 @@ import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.Times
 import edu.cs371m.silverscreen.ui.movie_times.MovieTimesViewModel
 import edu.cs371m.silverscreen.ui.movie_times.TheatreTimes
+import org.w3c.dom.Text
 
 
 class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
@@ -33,7 +34,23 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
 
         fun bind(item :TheatreTimes?) {
 
+
             if (item == null) return
+
+
+            r0.removeAllViews()
+            r1.removeAllViews()
+            r2.removeAllViews()
+            r3.removeAllViews()
+            r4.removeAllViews()
+            r5.removeAllViews()
+            if (item.times.size == 0) {
+                val text = TextView(itemView.context)
+                text.text ="No times for today"
+                r0.addView(text, 0)
+            }
+
+
             var rowList = mutableListOf<TableRow>()
             rowList.add(r0)
             rowList.add(r1)
@@ -71,7 +88,9 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(showtimes!![holder.adapterPosition])
+
+            holder.bind(showtimes!![holder.adapterPosition])
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

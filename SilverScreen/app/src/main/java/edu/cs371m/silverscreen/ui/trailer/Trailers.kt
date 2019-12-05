@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.ui.movies.MovieRowAdapter
+import kotlinx.android.synthetic.main.trailers_fragment.*
+import kotlin.error
 
 class Trailers : Fragment() {
 
@@ -43,7 +45,6 @@ class Trailers : Fragment() {
 
         val post = this.arguments?.getParcelable<MoviePost>("moviepost")
         if (post != null) {
-            val adapter = initRecyclerView(root, post.img!!.image_url!!)
             viewModel.DBQuery(post)
             viewModel.queryResult.observe(this, Observer {
                 if (it != null) {
@@ -51,6 +52,8 @@ class Trailers : Fragment() {
 //                    var i = 0
 //                    var found = false
                     if (it.size > 0) {
+                        val adapter = initRecyclerView(root, post.img!!.image_url!!)
+
                         viewModel.setMovieID(it[0].movie_id)
                         viewModel.DBVideoQuery()
                         viewModel.videoList.observe(this, Observer {
@@ -58,7 +61,11 @@ class Trailers : Fragment() {
                                 adapter.submitList(it)
                             }
                         })
+                    }else {
+                        error.text = "No trailers for this movie :("
+
                     }
+
 //                    while (i < it.size && !found) {
 //                        if (post!!.movieName.equals(it[i].movieName)) {
 //                            //set the movie id

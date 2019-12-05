@@ -21,7 +21,6 @@ import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import edu.cs371m.silverscreen.ui.account.AccountFragment
-import edu.cs371m.silverscreen.ui.home.HomeFragment
 import edu.cs371m.silverscreen.ui.movies.MoviesFragment
 import edu.cs371m.silverscreen.ui.recommendation.RecommendationsFragment
 import edu.cs371m.silverscreen.ui.theaters.TheatersFragment
@@ -66,14 +65,7 @@ class MainActivity : AppCompatActivity() {
             // This line changes the selected icon
             menuItem.isChecked = true
             when (menuItem.itemId) {
-                R.id.navigation_home -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.container, HomeFragment())
-                        // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .commit()
-                }
+
                 R.id.navigation_movies -> {
                     supportFragmentManager
                         .beginTransaction()
@@ -116,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_movies, R.id.navigation_theaters, R.id.navigation_recommendations, R.id.navigation_account))
+          R.id.navigation_movies, R.id.navigation_theaters, R.id.navigation_recommendations, R.id.navigation_account))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
 

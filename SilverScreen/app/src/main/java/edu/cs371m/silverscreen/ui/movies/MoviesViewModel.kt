@@ -216,7 +216,7 @@ class MoviesViewModel : ViewModel() {
     ) {
         movies_all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-12-05",
+                LocalDateTime.now().toString().substring(0,10),
                 zipcode.value!!,
                 radius.value!!,
                 "7",

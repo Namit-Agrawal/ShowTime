@@ -40,7 +40,15 @@ class Favorites : Fragment() {
         viewModel = activity?.let { ViewModelProviders.of(it).get(MoviesViewModel::class.java) }!!
 
         val root = inflater.inflate(R.layout.favorites_fragment, container, false)
-
+        val toolBar = root.findViewById<Toolbar>(R.id.toolbar)
+        if(activity is AppCompatActivity) {
+            (activity as AppCompatActivity).setSupportActionBar(toolBar)
+            (activity as AppCompatActivity).supportActionBar.let {
+                it?.setDisplayShowTitleEnabled(true)
+                it?.setDisplayShowCustomEnabled(true)
+                it?.title = "My Movies"
+            }
+        }
         // viewModel.netSubRefresh()
 
         val adapter = initRecyclerView(root)
