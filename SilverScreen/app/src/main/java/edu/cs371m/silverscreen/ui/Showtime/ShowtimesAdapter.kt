@@ -50,20 +50,20 @@ class ShowtimesAdapter(private val viewModel: ShowtimesViewModel) : RecyclerView
             //submit moviepost, but also reorganize showtimes to be in correct order
             movieTitle.text = item.movieName
             viewModel.netFetchImage(
-                "http://demo.tmsimg.com/" + item.img.image_url,
+                "http://demo.tmsimg.com/" + item.img!!.image_url,
                 thumbnail,
                 false
             )
             //need to check for each showtime
 //            //call organize post
-            var list = organizeShowtimes(item.showtimes)!!
-            var size = list.size
+            var list = organizeShowtimes(item.showtimes!!)
+            var size = list!!.size
             var buttonsList = mutableListOf<Button>()
             var i = 0
             var rowNum=0
             while (i < size) {
                 var button = Button(itemView.context)
-                button.text= list[i].substring(11)
+                button.text= list!![i].substring(11)
 //                //TODO: what is index????? how to insure no overlapping?
                 buttonsList.add(button)
                 rowList[rowNum].addView(button, i%4)
@@ -104,8 +104,8 @@ class ShowtimesAdapter(private val viewModel: ShowtimesViewModel) : RecyclerView
         val correct_times = mutableListOf<String>()
         var index = 0
         while (index < times.size) {
-            if (times[index].time.substring(0,10).equals(date)) {
-                correct_times.add(times[index].time)
+            if (times[index].time!!.substring(0,10).equals(date)) {
+                correct_times.add(times[index].time!!)
             }
 
             index++

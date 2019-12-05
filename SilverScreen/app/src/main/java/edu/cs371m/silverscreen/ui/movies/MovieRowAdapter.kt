@@ -44,7 +44,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             }
             fav.setOnClickListener{
                 var position = adapterPosition
-                if(MovieViewModel.isFav(getItem(position).id)) {
+                if(MovieViewModel.isFav(getItem(position).id!!)) {
                     MovieViewModel.removeFav(getItem(position))
                 } else {
                     MovieViewModel.addFav(getItem(position))
@@ -58,7 +58,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
         {
             if(item == null)
                 return;
-            if (MovieViewModel.isFav(item.id)) {
+            if (MovieViewModel.isFav(item.id!!)) {
                 fav.setImageResource(R.drawable.ic_favorite_black_24dp)
             } else {
                 fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
@@ -66,9 +66,9 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             movieTitleText.text = item.movieName
             if(item.duration!=null)
             durationText.text = item.duration.substring(3,4)+" hr "+item.duration.substring(5,7)+" min"
-           Log.d("message", item.img.image_url + "******")
+           Log.d("message", item.img?.image_url + "******")
 
-            MovieViewModel.netFetchImage("http://demo.tmsimg.com/"+item.img.image_url, thumbnail, false)
+            MovieViewModel.netFetchImage("http://demo.tmsimg.com/"+item.img?.image_url, thumbnail, false)
 
             if(item.cast!=null) {
                 actors.text = item.getMovieList(item.cast)
@@ -91,12 +91,11 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        if(getItem(position).type.equals("Theatre Event"))
-        {
-
+        if(getItem(position).type.equals("Feature Film")) {
+            holder.bind(getItem(holder.adapterPosition))
         }
         else
-            holder.bind(getItem(holder.adapterPosition))
+            holder.itemView.layoutParams= ViewGroup.LayoutParams(0,0)
 
     }
 

@@ -51,6 +51,10 @@ class Favorites : Fragment() {
             Log.d("message", it.size.toString() + "inside favorites, size is")
             adapter.submitList(it)
         })
+//        viewModel.observeUserFavList2().observe(this, Observer {
+//            Log.d("message", it.size.toString() + "inside favorites, size is")
+//            adapter.submitList(it)
+//        })
         return root
     }
 

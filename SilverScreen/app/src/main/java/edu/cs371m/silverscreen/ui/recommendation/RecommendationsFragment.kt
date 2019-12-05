@@ -68,9 +68,9 @@ class RecommendationsFragment : Fragment() {
             {
                 Log.d("************************* MOVIE ID", it[0].movie_id.toString())
                 viewModel.updateId(it[0].movie_id)
-                viewModel.observeID().observe(this, Observer {
+                //viewModel.observeID().observe(this, Observer {
                     viewModel.netSubRecommendedRefresh()
-                })
+                //})
 
 
             }

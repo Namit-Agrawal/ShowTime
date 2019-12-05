@@ -43,7 +43,7 @@ class Trailers : Fragment() {
 
         val post = this.arguments?.getParcelable<MoviePost>("moviepost")
         if (post != null) {
-            val adapter = initRecyclerView(root, post!!.img.image_url)
+            val adapter = initRecyclerView(root, post.img!!.image_url!!)
             viewModel.DBQuery(post)
             viewModel.queryResult.observe(this, Observer {
                 if (it != null) {

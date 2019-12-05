@@ -8,29 +8,29 @@ import java.util.*
 @Parcelize
 data class MoviePost(
     @SerializedName("title")
-    val movieName: String,
+    val movieName: String? = null,
     @SerializedName("genres")
-    val allGenres: List<String>,
+    val allGenres: List<String>? = null,
     @SerializedName("longDescription")
-    val description: String,
+    val description: String? = null,
     @SerializedName("topCast")
-    val cast: List<String>,
+    val cast: List<String>? = null,
     @SerializedName("directors")
-    val director: List<String>,
+    val director: List<String>? = null,
     @SerializedName("releaseDate")
-    val releaseDate : String,
+    val releaseDate : String? = null,
     @SerializedName("runTime")
-    val duration: String,
+    val duration: String? = null,
     @SerializedName("preferredImage")
-    val img: image,
+    val img: image? = null,
     @SerializedName("ratings")
-    val rating: List<Rating>,
+    val rating: List<Rating>? = null,
     @SerializedName("showtimes")
-    val showtimes: List<Times>,
+    val showtimes: List<Times>? = null,
     @SerializedName("subType")
-    val type: String,
+    val type: String? = null,
     @SerializedName("rootId")
-    val id: String
+    val id: String? = null
 ):Parcelable {
     fun getMovieList(list: List<String>): String {
         // XXX Write me
@@ -52,12 +52,13 @@ data class MoviePost(
 @Parcelize
 data class Rating(
     @SerializedName("code")
-    val actRating: String
+    val actRating: String? = null
 ): Parcelable
+
 @Parcelize
 data class image(
     @SerializedName("uri")
-    val image_url: String
+    val image_url: String? = null
 ): Parcelable
 
 
@@ -102,15 +103,15 @@ data class address (
 @Parcelize
 data class Times(
     @SerializedName("theatre")
-    val theatre : Theatre,
+    val theatre : Theatre? = null,
     @SerializedName("dateTime")
-    val time :String
+    val time :String? = null
 ):Parcelable
 
 @Parcelize
 data class Theatre(
     @SerializedName("id")
-    val theatreId: String,
+    val theatreId: String? = null,
     @SerializedName("name")
-    val name:String
+    val name:String? = null
 ): Parcelable

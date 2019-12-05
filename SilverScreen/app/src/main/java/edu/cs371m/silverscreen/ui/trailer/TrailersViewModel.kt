@@ -38,7 +38,7 @@ class TrailersViewModel : ViewModel() {
         context = viewModelScope.coroutineContext + Dispatchers.IO
     ) {
         queryResult.postValue(
-            movieRepo.fetchResponse(item.movieName, "f1e47867122912dbf25aa3bfcd06ebcb")
+            movieRepo.fetchResponse(item.movieName!!, "f1e47867122912dbf25aa3bfcd06ebcb")
         )
     }
 

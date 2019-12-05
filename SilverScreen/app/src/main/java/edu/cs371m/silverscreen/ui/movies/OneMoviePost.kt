@@ -50,9 +50,9 @@ class OneMoviePost : AppCompatActivity() {
         var duration = ""
         callingBundle?.apply {
             entireMoviePost = intent.getParcelableExtra("movie_info")!!
-            movie_title = entireMoviePost.movieName
-            img = "http://demo.tmsimg.com/"+entireMoviePost.img.image_url
-            duration = entireMoviePost.duration.substring(3, 4) + " hr " + entireMoviePost.duration.substring(
+            movie_title = entireMoviePost.movieName!!
+            img = "http://demo.tmsimg.com/"+entireMoviePost.img!!.image_url
+            duration = entireMoviePost.duration!!.substring(3, 4) + " hr " + entireMoviePost.duration!!.substring(
                     5,
                     7
                 ) + " min"
@@ -92,7 +92,7 @@ class OneMoviePost : AppCompatActivity() {
 //            .build()
 
         val linkContent = ShareLinkContent.Builder()
-            .setContentUrl(Uri.parse("http://demo.tmsimg.com/"+entireMoviePost.img.image_url))
+            .setContentUrl(Uri.parse("http://demo.tmsimg.com/"+entireMoviePost.img!!.image_url))
             .build()
 
         share.shareContent=linkContent

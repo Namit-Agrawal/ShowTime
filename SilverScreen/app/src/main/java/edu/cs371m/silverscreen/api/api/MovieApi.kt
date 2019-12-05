@@ -10,6 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 interface MovieApi {
 @GET("v1.1/movies/showings")
@@ -61,6 +62,9 @@ suspend fun getTimes(
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     this.level = HttpLoggingInterceptor.Level.BASIC
                 })
+                .connectTimeout(30, TimeUnit.SECONDS) // connect timeout
+                .writeTimeout(30, TimeUnit.SECONDS) // write timeout
+                .readTimeout(30, TimeUnit.SECONDS) // read timeout
                 .build()
             return Retrofit.Builder()
                 .baseUrl(httpUrl)

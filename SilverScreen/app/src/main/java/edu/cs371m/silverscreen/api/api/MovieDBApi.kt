@@ -31,6 +31,7 @@ interface MovieDBApi {
 
 
     data class MovieDBResponse(val results:List<MovieDBPost>)
+
     data class MovieDBVideo(val results: List<videoPost>)
     @GET("/3/movie/{movie_id}/videos")
     suspend fun fetchVideos(

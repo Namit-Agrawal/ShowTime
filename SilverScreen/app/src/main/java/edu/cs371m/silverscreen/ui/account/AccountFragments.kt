@@ -69,7 +69,6 @@ class AccountFragment : Fragment() {
         loginButton.setFragment(this)
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-               Log.d("**********************8", FirebaseAuth.getInstance().currentUser!!.toString())
             }
 
             override fun onCancel() {
@@ -110,6 +109,7 @@ class AccountFragment : Fragment() {
                     AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setIsSmartLockEnabled(false)
                         .build(),
                     1
                 )
@@ -117,7 +117,6 @@ class AccountFragment : Fragment() {
             } else {
                 viewModel.setUser(null)
                 FirebaseAuth.getInstance().signOut()
-                viewModel.updateUsersfavList(mutableListOf())
                 viewModel.favorites.value = mutableListOf()
                 viewModel.favPostID.value = mutableListOf()
                 userTV.isVisible = false
@@ -164,7 +163,8 @@ class AccountFragment : Fragment() {
 
                 }
 
-
+                viewModel.favorites.value = mutableListOf()
+                viewModel.favPostID.value = mutableListOf()
                 val docRef =database.collection("Users").document(user.uid)
                 docRef.get()
                     .addOnSuccessListener { document ->
@@ -173,8 +173,10 @@ class AccountFragment : Fragment() {
                             //returning doc
                             val x = document.toObject(MoviesViewModel.User::class.java)
                             Log.d("Inside document", x?.favs.toString())
-                            viewModel.updateUsersfavList(x!!.favs!!)
-
+                            if(x!!.entMoviePost!!.size>0)
+                                viewModel.favorites.value = x.entMoviePost
+                            if(x.favs!!.size>0)
+                                viewModel.favPostID.value = x.favs
 
                         } else {
                             //new user logging in for the first time in forever
@@ -183,9 +185,10 @@ class AccountFragment : Fragment() {
                                 user.email!!,
                                 "78705",
                                 listOf<String>()
+                                //listOf<MoviePost>()
                             )
                             database.collection("Users").document(user.uid).set(currentUser)
-                            viewModel.updateUsersfavList(mutableListOf())
+
                         }
 
                     }

@@ -64,7 +64,8 @@ class MoviesViewModel : ViewModel() {
 
     var user = MutableLiveData<FirebaseUser>().apply {value = null}
 
-    var usersFavList = MutableLiveData<List<String>>().apply { value = mutableListOf() }
+
+
 
     fun observeUser():LiveData<FirebaseUser?> {
         return user
@@ -74,18 +75,12 @@ class MoviesViewModel : ViewModel() {
         user.postValue(newUser)
     }
 
-    fun updateUsersfavList(list: List<String>){
-        usersFavList.postValue(list)
-
-    }
-
-//
     fun writeNewUser(
         userID: String, name: String, email: String,
         favs: List<String>, zip: String
     ) {
         val user = User(name, email, zip, favs)
-        var database = FirebaseDatabase.getInstance().reference
+        val database = FirebaseDatabase.getInstance().reference
         database.child("users").child(userID).setValue(user)
 
         Log.d("entering ", " database")
@@ -96,7 +91,8 @@ class MoviesViewModel : ViewModel() {
         var username: String? = null,
         var email: String? = null,
         var zipcode: String?= null,
-        var favs: List<String>? = null
+        var favs: List<String>? = null,
+        var entMoviePost: List<MoviePost>? = null
     )
 
     fun observeTheaters():LiveData<List<TheatrePost>> {
@@ -118,10 +114,11 @@ class MoviesViewModel : ViewModel() {
     fun isFav(key: String): Boolean
     {
         Log.d("mess","fek;lerferg")
-        return favPostID.value!!.contains(key) || usersFavList.value!!.contains(key)
+        return favPostID.value!!.contains(key)
     }
     fun addFav(item: MoviePost)
     {
+
         val localList = favorites.value?.toMutableList()
         val locallist2 = favPostID.value?.toMutableList()
         localList?.let {
@@ -130,7 +127,7 @@ class MoviesViewModel : ViewModel() {
 
         }
         locallist2?.let{
-            it.add(item.id)
+            it.add(item.id!!)
             favPostID.value = it
         }
 
@@ -141,6 +138,8 @@ class MoviesViewModel : ViewModel() {
 
             val userInfo = db.collection("Users").document(user.value!!.uid)
             userInfo.update("favs", FieldValue.arrayUnion(item.id))
+            userInfo.update("entMoviePost", FieldValue.arrayUnion(item))
+
 
             Log.d("message", favorites.value!!.size.toString() + "size is* ")
         }
@@ -166,6 +165,8 @@ class MoviesViewModel : ViewModel() {
 
             val userInfo = db.collection("Users").document(user.value!!.uid)
             userInfo.update("favs", FieldValue.arrayRemove(item.id))
+            userInfo.update("entMoviePost", FieldValue.arrayRemove(item))
+
         }
 
     }
@@ -215,7 +216,7 @@ class MoviesViewModel : ViewModel() {
     ) {
         movies_all_list.postValue(
             movieRepo.fetchResponse(
-                "2019-12-03",
+                "2019-12-05",
                 zipcode.value!!,
                 radius.value!!,
                 "7",

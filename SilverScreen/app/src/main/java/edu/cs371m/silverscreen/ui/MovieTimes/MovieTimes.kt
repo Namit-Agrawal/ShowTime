@@ -66,49 +66,49 @@ class MovieTimes : Fragment() {
 
         day1.setOnClickListener{
             date = "2019-12-01"
-            var correct = organizeShowtimes(times)
+            var correct = organizeShowtimes(times!!)
             if (correct != null)
                 adapter.submitList(correct)
         }
         day2.setOnClickListener{
             date = "2019-12-02"
-            var correct = organizeShowtimes(times)
+            var correct = organizeShowtimes(times!!)
             if (correct != null)
 
             adapter.submitList(correct)
         }
         day3.setOnClickListener{
             date = "2019-12-03"
-            var correct = organizeShowtimes(times)
+            var correct = organizeShowtimes(times!!)
             if (correct != null)
                 adapter.submitList(correct)
         }
         day4.setOnClickListener{
             date = "2019-12-04"
-            var correct = organizeShowtimes(times)
+            var correct = organizeShowtimes(times!!)
             if (correct != null)
                 adapter.submitList(correct)
         }
         day5.setOnClickListener{
             date = "2019-12-05"
-            var correct = organizeShowtimes(times)
+            var correct = organizeShowtimes(times!!)
             if (correct != null)
                 adapter.submitList(correct)
         }
         day6.setOnClickListener{
             date = "2019-12-06"
-            var correct = organizeShowtimes(times)
+            var correct = organizeShowtimes(times!!)
             if (correct != null)
                 adapter.submitList(correct)
         }
         day7.setOnClickListener{
             date = "2019-12-07"
-            var correct = organizeShowtimes(times)
+            var correct = organizeShowtimes(times!!)
             if (correct != null)
                 adapter.submitList(correct)
         }
 
-        var correct = organizeShowtimes(times)
+        var correct = organizeShowtimes(times!!)
         if (correct != null)
             adapter.submitList(correct)
         return root
@@ -125,33 +125,33 @@ class MovieTimes : Fragment() {
         if (times.size > 0) {
             //for the first object
 
-            var currentTheatre = times[index].theatre.name
+            var currentTheatre = times[index].theatre!!.name
             var currentList = mutableListOf<String>()
 
 
             while (index <times.size) {
 
-                if (times[index].theatre.name?.equals(currentTheatre)) {
-                    if (times[index].time.substring(0,10).equals(date)) {
-                        currentList.add(times[index].time)
+                if (times[index].theatre!!.name?.equals(currentTheatre)!!) {
+                    if (times[index].time!!.substring(0,10).equals(date)) {
+                        currentList.add(times[index].time!!)
                         // edge case
                         if (index == times.size - 1) {
 
-                            var theatre = TheatreTimes()
-                            theatre.theatreName = currentTheatre
+                            val theatre = TheatreTimes()
+                            theatre.theatreName = currentTheatre!!
                             theatre.times = currentList
                             correct_times.add(theatre)
                         }
                     }
                 } else {
                     //done with this particular theatre, add to list
-                    var theatre = TheatreTimes()
-                    theatre.theatreName = currentTheatre
+                    val theatre = TheatreTimes()
+                    theatre.theatreName = currentTheatre!!
                     theatre.times = currentList
 
                     correct_times.add(theatre)
                     //now keep track of new theatre
-                    currentTheatre = times[index].theatre.name
+                    currentTheatre = times[index].theatre!!.name
                     currentList = mutableListOf()
                 }
                 index++
