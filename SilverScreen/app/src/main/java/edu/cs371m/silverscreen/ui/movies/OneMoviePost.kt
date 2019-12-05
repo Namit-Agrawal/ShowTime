@@ -8,7 +8,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.ViewModelProviders
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.ui.cast.*
@@ -69,7 +73,7 @@ class OneMoviePost : AppCompatActivity() {
 
         mov_title.text = movie_title
         duration_lay.text = duration
-       // viewModel.netFetchImage(img, movie_thumbnail, true)
+        viewModel.netFetchImage(img, movie_thumbnail, true)
         movie_trailers.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
@@ -88,6 +92,20 @@ class OneMoviePost : AppCompatActivity() {
                 .replace(R.id.frag, MovieTimes.newInstance(entireMoviePost))
                 .commit()
         }
+
+
+             val con = ShareLinkContent.Builder()
+
+             val bitmap = movie_thumbnail.drawable.toBitmap()
+             val photo = SharePhoto.Builder()
+                 .setBitmap(bitmap)
+                 .build()
+             val content = SharePhotoContent.Builder()
+                 .addPhoto(photo)
+                 .build()
+             share.shareContent = content
+
+
     }
 
 

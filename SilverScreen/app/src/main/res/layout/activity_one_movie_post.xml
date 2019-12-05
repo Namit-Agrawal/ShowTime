@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PG,"
+                android:text="PG"
                 android:textSize="14sp"
                 android:layout_marginEnd="8dp"
                 android:id="@+id/rating">
@@ -60,6 +60,14 @@
                 android:textSize="14sp"
                 android:id="@+id/duration_lay">
             </TextView>
+            <com.facebook.share.widget.ShareButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SHARE"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/share">
+            </com.facebook.share.widget.ShareButton>
 
         </LinearLayout>
         <LinearLayout

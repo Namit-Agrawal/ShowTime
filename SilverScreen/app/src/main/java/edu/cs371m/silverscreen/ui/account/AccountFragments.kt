@@ -16,6 +16,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+
 import androidx.lifecycle.ViewModelProviders
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -24,8 +25,10 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
+import com.facebook.share.model.SharePhoto
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -63,15 +66,20 @@ class AccountFragment : Fragment() {
         val EMAIL = "email"
         val loginButton = root.findViewById<LoginButton>(R.id.login_button)
         loginButton.setPermissions(Arrays.asList(EMAIL))
+        loginButton.setFragment(this)
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
 
             }
 
             override fun onCancel() {
+                Log.d("On Cancel", "***************************************************************88")
+
             }
 
             override fun onError(error: FacebookException) {
+                Log.d("On Error", "***************************************************************88")
+
             }
         })
 
@@ -134,9 +142,9 @@ class AccountFragment : Fragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager.onActivityResult(requestCode, resultCode, data)
 
         super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             val response = IdpResponse.fromResultIntent(data)
 
@@ -205,10 +213,11 @@ class AccountFragment : Fragment() {
             email = user.email!!
             res = "User: " + user.displayName + "\n" + "Email: " + email
         }
-
-
-
         return res
+    }
+
+    fun handleFacebookAccessToken(token: AccessToken) {
+
     }
 }
 
