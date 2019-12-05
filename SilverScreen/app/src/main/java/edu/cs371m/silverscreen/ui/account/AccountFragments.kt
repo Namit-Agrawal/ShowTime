@@ -69,7 +69,7 @@ class AccountFragment : Fragment() {
         loginButton.setFragment(this)
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-
+               Log.d("**********************8", FirebaseAuth.getInstance().currentUser!!.toString())
             }
 
             override fun onCancel() {
@@ -117,8 +117,10 @@ class AccountFragment : Fragment() {
             } else {
                 viewModel.setUser(null)
                 FirebaseAuth.getInstance().signOut()
+                viewModel.updateUsersfavList(mutableListOf())
+                viewModel.favorites.value = mutableListOf()
+                viewModel.favPostID.value = mutableListOf()
                 userTV.isVisible = false
-
             }
 
         }

@@ -2,7 +2,6 @@ package edu.cs371m.silverscreen.ui.movies
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Movie
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -47,6 +46,9 @@ class MoviesViewModel : ViewModel() {
     var rec_search = MutableLiveData<List<MovieDBPost>>().apply {
         value = mutableListOf()
     }
+    var favPostID = MutableLiveData<List<String>>().apply {
+        value = mutableListOf()
+    }
 
 
     var movie = MutableLiveData<MoviePost>().apply { value = null }
@@ -74,6 +76,7 @@ class MoviesViewModel : ViewModel() {
 
     fun updateUsersfavList(list: List<String>){
         usersFavList.postValue(list)
+
     }
 
 //
@@ -112,23 +115,23 @@ class MoviesViewModel : ViewModel() {
     fun observeFavorites(): LiveData<List<MoviePost>>{
         return favorites
     }
-    fun isFav(item: MoviePost): Boolean
+    fun isFav(key: String): Boolean
     {
         Log.d("mess","fek;lerferg")
-
-        if (favorites.value == null) {
-            return false
-        }
-        Log.d("message", favorites.value!!.size.toString() + "size is ")
-        return favorites.value!!.contains(item)
+        return favPostID.value!!.contains(key) || usersFavList.value!!.contains(key)
     }
     fun addFav(item: MoviePost)
     {
         val localList = favorites.value?.toMutableList()
+        val locallist2 = favPostID.value?.toMutableList()
         localList?.let {
             it.add(item)
             favorites.value = it
 
+        }
+        locallist2?.let{
+            it.add(item.id)
+            favPostID.value = it
         }
 
         if (user.value != null) {
@@ -148,11 +151,14 @@ class MoviesViewModel : ViewModel() {
     fun removeFav(item: MoviePost)
     {
         val localList = favorites.value?.toMutableList()
+        val locallist2 = favPostID.value?.toMutableList()
         localList?.let {
             it.remove(item)
             favorites.value = it
-
-
+        }
+        locallist2?.let{
+            it.remove(item.id)
+            favPostID.value= it
         }
         if (user.value != null) {
             val db = FirebaseFirestore.getInstance()

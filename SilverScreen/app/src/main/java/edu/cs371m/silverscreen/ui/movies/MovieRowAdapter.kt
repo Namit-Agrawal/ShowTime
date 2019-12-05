@@ -1,6 +1,5 @@
 package edu.cs371m.silverscreen.ui.movies
 
-import android.graphics.Movie
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +44,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             }
             fav.setOnClickListener{
                 var position = adapterPosition
-                if(MovieViewModel.isFav(getItem(position))) {
+                if(MovieViewModel.isFav(getItem(position).id)) {
                     MovieViewModel.removeFav(getItem(position))
                 } else {
                     MovieViewModel.addFav(getItem(position))
@@ -59,7 +58,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
         {
             if(item == null)
                 return;
-            if (MovieViewModel.isFav(item)) {
+            if (MovieViewModel.isFav(item.id)) {
                 fav.setImageResource(R.drawable.ic_favorite_black_24dp)
             } else {
                 fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)

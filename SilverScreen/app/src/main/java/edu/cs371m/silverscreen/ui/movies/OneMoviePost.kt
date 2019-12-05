@@ -1,6 +1,7 @@
 package edu.cs371m.silverscreen.ui.movies;
 
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -39,19 +40,7 @@ class OneMoviePost : AppCompatActivity() {
             // Apply the custom view
             it?.customView = customView
             val favorite = customView.findViewById<ImageButton>(R.id.favorite)
-            favorite.setOnClickListener{
-                if(viewModel.isFav(entireMoviePost)) {
-                    favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                    viewModel.removeFav(entireMoviePost)
-                }
-                else
-                {
-                    favorite.setImageResource(R.drawable.ic_favorite_black_24dp)
-                    viewModel.addFav(entireMoviePost)
-                }
-
-            }
-
+            favorite.visibility=View.INVISIBLE
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val intent = intent
@@ -94,15 +83,19 @@ class OneMoviePost : AppCompatActivity() {
         }
 
 
-        val bitmap = movie_thumbnail.drawable.toBitmap()
-        val photo = SharePhoto.Builder()
-            .setBitmap(bitmap)
-            .build()
-        val content = SharePhotoContent.Builder()
-            .addPhoto(photo)
-            .build()
-        share.shareContent = content
+//        val bitmap = movie_thumbnail.drawable.toBitmap()
+//        val photo = SharePhoto.Builder()
+//            .setBitmap(bitmap)
+//            .build()
+//        val content = SharePhotoContent.Builder()
+//            .addPhoto(photo)
+//            .build()
 
+        val linkContent = ShareLinkContent.Builder()
+            .setContentUrl(Uri.parse("http://demo.tmsimg.com/"+entireMoviePost.img.image_url))
+            .build()
+
+        share.shareContent=linkContent
 
     }
 
