@@ -119,17 +119,17 @@ class AccountFragment : Fragment() {
                 FirebaseAuth.getInstance().signOut()
                 viewModel.favorites.value = mutableListOf()
                 viewModel.favPostID.value = mutableListOf()
-                userTV.isVisible = false
+                //userTV.isVisible = false
             }
 
         }
-        val facebook = root.findViewById<Button>(R.id.facebook)
-        facebook.setOnClickListener {
-
-
-            LoginManager.getInstance()
-                .logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        }
+//        val facebook = root.findViewById<Button>(R.id.facebook)
+//        facebook.setOnClickListener {
+//
+//
+//            LoginManager.getInstance()
+//                .logInWithReadPermissions(this, Arrays.asList("public_profile"));
+//        }
         val accessToken = AccessToken.getCurrentAccessToken()
         val isLoggedIn = accessToken != null && !accessToken.isExpired()
 
@@ -156,13 +156,7 @@ class AccountFragment : Fragment() {
                 val user = FirebaseAuth.getInstance().currentUser
                 var res = ""
                 res = getStuff(user!!)
-                userTV.setText(res)
-                setDisplayName.setOnClickListener {
-                    var name = displayNameET.text.toString()
-                    userTV.setText("User: " + name + "\n" + "Email: " + user!!.email)
-
-                }
-
+                userTV.setText("Welcome\n"+"User: " + user!!.displayName + "\n" + "Email: " + user!!.email)
                 viewModel.favorites.value = mutableListOf()
                 viewModel.favPostID.value = mutableListOf()
                 val docRef =database.collection("Users").document(user.uid)

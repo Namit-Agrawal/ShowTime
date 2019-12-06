@@ -48,10 +48,10 @@ class RecommendationsFragment : Fragment() {
 
                 rec.setOnEditorActionListener(object : TextView.OnEditorActionListener {
                     override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                        Log.d("***********************************", "*******************************")
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             viewModel.updateAMovieForRec(rec.text.toString())
                             viewModel.netSubRecommendedSearchRefresh()
-
                             return true
                         }
                         return false
@@ -63,14 +63,33 @@ class RecommendationsFragment : Fragment() {
 
         val adapter = initRecyclerView(root)
 
+//        viewModel.observeAMovieForRec().observe(this, Observer {
+//            if(!it.equals("")) {
+//                viewModel.netSubRecommendedSearchRefresh()
+//                viewModel.observeSearchRecommended().observe(this, Observer {
+//                    if (it.size > 0) {
+//                        Log.d("************************* MOVIE ID", it[0].movie_id.toString())
+//                        viewModel.updateId(it[0].movie_id)
+//                        viewModel.observeID().observe(this, Observer {
+//                            viewModel.netSubRecommendedRefresh()
+//                        })
+//
+//
+//                    }
+//                })
+//            }
+//        })
+
+
+
         viewModel.observeSearchRecommended().observe(this, Observer {
             if(it.size>0)
             {
                 Log.d("************************* MOVIE ID", it[0].movie_id.toString())
                 viewModel.updateId(it[0].movie_id)
-                //viewModel.observeID().observe(this, Observer {
+                viewModel.observeID().observe(this, Observer {
                     viewModel.netSubRecommendedRefresh()
-                //})
+                })
 
 
             }

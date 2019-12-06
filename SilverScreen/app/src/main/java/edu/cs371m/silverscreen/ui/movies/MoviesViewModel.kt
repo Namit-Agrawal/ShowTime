@@ -49,7 +49,9 @@ class MoviesViewModel : ViewModel() {
     var favPostID = MutableLiveData<List<String>>().apply {
         value = mutableListOf()
     }
-
+    var comingSoon = MutableLiveData<List<MovieDBPost>>().apply {
+        value = mutableListOf()
+    }
 
     var movie = MutableLiveData<MoviePost>().apply { value = null }
     var rec_movie = MutableLiveData<String>().apply { value = "" }
@@ -65,6 +67,19 @@ class MoviesViewModel : ViewModel() {
     var user = MutableLiveData<FirebaseUser>().apply {value = null}
 
 
+
+    fun observeComingSoon(): LiveData<List<MovieDBPost>>{
+        return comingSoon
+    }
+
+    fun netSubComingSoonRefresh() = viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO
+    ) {
+
+        comingSoon.postValue(
+            movieDBRepo.fetchComingSoon( "f1e47867122912dbf25aa3bfcd06ebcb", "US")
+        )
+    }
 
 
     fun observeUser():LiveData<FirebaseUser?> {
@@ -183,8 +198,9 @@ class MoviesViewModel : ViewModel() {
 
     fun updateAMovieForRec(str: String)
     {
-        rec_movie.postValue(str)
         Log.d("*******************************************************",rec_movie.value!!)
+        rec_movie.postValue(str)
+
     }
     fun updateZip(str: String)
     {

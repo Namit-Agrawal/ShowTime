@@ -29,6 +29,10 @@ interface MovieDBApi {
         @Query("api_key") key: String) :MovieDBResponse
 
 
+    @GET("3/movie/upcoming")
+    suspend fun fetchUpcoming(
+        @Query("api_key") key: String,
+        @Query("region") reg: String): MovieDBResponse
 
     data class MovieDBResponse(val results:List<MovieDBPost>)
 

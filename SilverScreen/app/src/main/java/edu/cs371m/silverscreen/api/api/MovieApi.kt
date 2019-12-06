@@ -66,6 +66,7 @@ suspend fun getTimes(
                 .writeTimeout(30, TimeUnit.SECONDS) // write timeout
                 .readTimeout(30, TimeUnit.SECONDS) // read timeout
                 .build()
+
             return Retrofit.Builder()
                 .baseUrl(httpUrl)
                 .client(client)
