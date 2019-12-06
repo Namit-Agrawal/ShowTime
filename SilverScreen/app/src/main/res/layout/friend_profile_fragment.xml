@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".FriendProfile">
 
-    <TextView
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_favs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

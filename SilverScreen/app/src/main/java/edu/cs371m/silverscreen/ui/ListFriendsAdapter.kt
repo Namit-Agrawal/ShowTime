@@ -42,8 +42,8 @@ class ListFriendsAdapter(private val viewModel: ListFriendsViewModel, private va
                 Log.d("here","launch profile")
                // var model =   ViewModelProviders.of(it).get(FriendProfileViewModel::class.java)
                 //model.
-               // profileViewModel.fetchFriendProfile(item)
-                //profile()
+                profileViewModel.fetchFriendProfile(item)
+                profile()
 
             }
 
