@@ -40,7 +40,7 @@ class MovieRowAdapter(private val MovieViewModel: MoviesViewModel)
             wholePost.setOnClickListener {
 
                 val position = adapterPosition
-                MoviesViewModel.doMoviePost(itemView.context, getItem(position))
+                MoviesViewModel.doMoviePost(itemView.context, getItem(position), true)
             }
             fav.setOnClickListener{
                 var position = adapterPosition

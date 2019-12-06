@@ -20,6 +20,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
+import edu.cs371m.silverscreen.api.api.TheatrePost
 import edu.cs371m.silverscreen.api.api.Times
 import edu.cs371m.silverscreen.ui.MovieTimes.MovieTimesAdapter
 import edu.cs371m.silverscreen.ui.cast.Cast
@@ -193,7 +194,7 @@ class MovieTimes : Fragment() {
 
             var currentTheatre = times[index].theatre!!.name
             var currentList = mutableListOf<String>()
-
+            var currentTheatreID: String? = times[index].theatre!!.theatreId
 
             while (index <times.size) {
 
@@ -206,6 +207,7 @@ class MovieTimes : Fragment() {
                             var theatre = TheatreTimes()
                             theatre.theatreName = currentTheatre!!
                             theatre.times = currentList
+                            theatre.theatreID = currentTheatreID!!
                             correct_times.add(theatre)
                         }
                     }
@@ -216,11 +218,13 @@ class MovieTimes : Fragment() {
                     var theatre = TheatreTimes()
                     theatre.theatreName = currentTheatre!!
                     theatre.times = currentList
+                    theatre.theatreID = currentTheatreID!!
 
 
                     correct_times.add(theatre)
                     //now keep track of new theatre
                     currentTheatre = times[index].theatre!!.name
+                    currentTheatreID = times[index].theatre!!.theatreId
                     currentList = mutableListOf()
                 }
                 index++
@@ -248,7 +252,7 @@ class MovieTimes : Fragment() {
 
 class TheatreTimes {
     lateinit var theatreName :String
-
     lateinit var times: List<String>
+    lateinit var theatreID: String
 
 }

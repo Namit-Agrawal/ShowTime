@@ -29,16 +29,28 @@ class ShowtimesAdapter(private val viewModel: ShowtimesViewModel) : RecyclerView
         var r5 = itemView.findViewById<TableRow>(R.id.r5)
 
 
-//        init{
-//            wholePost.setOnClickListener {
-//                val position = adapterPosition
-//                MoviesViewModel.doMoviePost(itemView.context, movies[position])
-//            }
-//        }
+        init{
+            wholePost.setOnClickListener {
+                val position = adapterPosition
+                MoviesViewModel.doMoviePost(itemView.context, movies[position], false)
+            }
+        }
 
         fun bind(item: MoviePost) {
-            date= "2019-12-03"
             if (item == null) return
+
+            r0.removeAllViews()
+            r1.removeAllViews()
+            r2.removeAllViews()
+            r3.removeAllViews()
+            r4.removeAllViews()
+            r5.removeAllViews()
+
+
+
+
+
+
             var rowList = mutableListOf<TableRow>()
             rowList.add(r0)
             rowList.add(r1)
@@ -86,7 +98,6 @@ class ShowtimesAdapter(private val viewModel: ShowtimesViewModel) : RecyclerView
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.bind(movies[holder.adapterPosition])
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

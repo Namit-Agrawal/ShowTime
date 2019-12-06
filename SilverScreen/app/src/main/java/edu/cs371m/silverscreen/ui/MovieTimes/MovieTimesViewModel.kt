@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import edu.cs371m.silverscreen.api.api.MovieApi
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.MovieRepository
+import edu.cs371m.silverscreen.api.api.TheatrePost
 import edu.cs371m.silverscreen.ui.movies.OneMoviePost
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,23 +23,15 @@ class MovieTimesViewModel : ViewModel() {
     private val movieRepo = MovieRepository(movieApi)
 
     var times = MutableLiveData<MoviePost>().apply { value = null }
+    var post = MutableLiveData<TheatrePost>().apply { value = null }
 
     fun observeTimes(): LiveData<MoviePost> {
         return times
     }
+}
 
-//    fun netSubRefresh() = viewModelScope.launch(
-//        context = viewModelScope.coroutineContext + Dispatchers.IO
-//    ) {
-//       times.postValue(
-//            movieRepo.fetchResponse(
-//                "2019-11-28",
-//                "78701",
-//                "10",
-//                "bsj768xkm54t6wuchqxxrbrt"
-//            )
-//        )
-    }
+
+
 
 
 

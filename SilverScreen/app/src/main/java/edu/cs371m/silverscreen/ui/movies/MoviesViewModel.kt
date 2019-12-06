@@ -95,6 +95,13 @@ class MoviesViewModel : ViewModel() {
         var entMoviePost: List<MoviePost>? = null
     )
 
+    data class Friends(
+        var list: List<String>? = null
+    )
+    data class IncomingRequests(
+        var list: List<String>? = null
+    )
+
     fun observeTheaters():LiveData<List<TheatrePost>> {
         return theatre_all_list
     }
@@ -260,10 +267,11 @@ class MoviesViewModel : ViewModel() {
 
 
     companion object {
-        fun doMoviePost(context: Context, moviePost: MoviePost) {
+        fun doMoviePost(context: Context, moviePost: MoviePost,  haveShowtimes: Boolean) {
             val intent = Intent(context, OneMoviePost::class.java)
             val myExtras = Bundle()
             myExtras.putParcelable("movie_info", moviePost)
+            myExtras.putBoolean("haveShowtime",haveShowtimes)
             intent.putExtras(myExtras)
             startActivity(context, intent, myExtras)
         }
@@ -275,6 +283,8 @@ class MoviesViewModel : ViewModel() {
             intent.putExtras(myExtras)
             startActivity(context, intent, myExtras)
         }
+
+
 
     }
 }

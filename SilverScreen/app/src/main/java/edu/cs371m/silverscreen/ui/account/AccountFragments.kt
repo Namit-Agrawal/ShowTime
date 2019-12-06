@@ -1,6 +1,7 @@
 package edu.cs371m.silverscreen.ui.account
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Movie
 import android.os.Bundle
@@ -9,12 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 
 import androidx.lifecycle.ViewModelProviders
@@ -33,12 +37,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
+import edu.cs371m.silverscreen.api.api.TheatrePost
+import edu.cs371m.silverscreen.ui.ListFriends
+import edu.cs371m.silverscreen.ui.ListFriendsViewModel
+import edu.cs371m.silverscreen.ui.Request
+import edu.cs371m.silverscreen.ui.RequestViewModel
 import edu.cs371m.silverscreen.ui.movie_times.MovieTimesViewModel
+import edu.cs371m.silverscreen.ui.movies.MoviesFragment
 import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
+import edu.cs371m.silverscreen.ui.theaters.OneTheatrePost
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import java.util.*
@@ -119,6 +131,7 @@ class AccountFragment : Fragment() {
                 FirebaseAuth.getInstance().signOut()
                 viewModel.favorites.value = mutableListOf()
                 viewModel.favPostID.value = mutableListOf()
+
                 userTV.isVisible = false
             }
 
@@ -132,6 +145,28 @@ class AccountFragment : Fragment() {
         }
         val accessToken = AccessToken.getCurrentAccessToken()
         val isLoggedIn = accessToken != null && !accessToken.isExpired()
+
+
+        val friends_but = root.findViewById<LinearLayout>(R.id.friends)
+        friends_but.setOnClickListener{
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.container, ListFriends())
+                // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
+                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                ?.commit()
+        }
+
+        val new_friend_request = root.findViewById<LinearLayout>(R.id.new_r)
+        new_friend_request.setOnClickListener {
+            //fragment
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.container, Request())
+                // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
+                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                ?.commit()
+        }
 
 
         return root
@@ -184,22 +219,63 @@ class AccountFragment : Fragment() {
                                 user.displayName!!,
                                 user.email!!,
                                 "78705",
-                                listOf<String>()
-                                //listOf<MoviePost>()
+                                listOf<String>(),
+                                listOf<MoviePost>()
+
                             )
+                            val friends = MoviesViewModel.Friends(listOf<String>())
+                            var requests = MoviesViewModel.IncomingRequests(listOf<String>())
                             database.collection("Users").document(user.uid).set(currentUser)
+                            database.collection("Users").document(user.uid).collection("Other data")
+                                .document("friend").set(friends)
+                            database.collection("Users").document(user.uid).collection("Other data")
+                                .document("new requests").set(requests)
 
                         }
 
                     }
-                database.collection("Users")
-                    .whereEqualTo("email", user.email)
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            Log.d("help", "${document.id} => ${document.data}")
-                        }
+//                database.collection("Users")
+//                    .whereEqualTo("email", user.email)
+//                    .get()
+//                    .addOnSuccessListener { documents ->
+//                        for (document in documents) {
+//                            Log.d("help", "${document.id} => ${document.data}")
+//                        }
+//                    }
+                //set up snapshot listener for incoming requests
+                var model =    activity?.let { ViewModelProviders.of(it).get(RequestViewModel::class.java) }!!
+
+                val requestDoc = database.collection("Users").document(user.uid).collection("Other data")
+                    .document("new requests")
+                requestDoc.addSnapshotListener{snapshot,e ->
+                    if(e!=null) {
+                        Log.d("fail", "listen")
+
+                    } else if (snapshot != null && snapshot.exists()) {
+                        val x = snapshot.toObject(MoviesViewModel.IncomingRequests::class.java)
+                        //requests.text = x!!.list!!.size.toString()
+                        model.updateRequests(x!!.list!!)
+
+                        Log.d("updateeeddd friends list!!!", "here" + snapshot.data)
                     }
+
+                }
+                var friendmodel =    activity?.let { ViewModelProviders.of(it).get(ListFriendsViewModel::class.java) }!!
+
+                val friendDoc = database.collection("Users").document(user.uid).collection("Other data")
+                    .document("friend")
+                friendDoc.addSnapshotListener{snapshot, e ->
+                    if (e != null) {
+                        Log.d("fail", "listen")
+                    } else if (snapshot != null && snapshot.exists()) {
+                        val x = snapshot.toObject(MoviesViewModel.Friends::class.java)
+                        //requests.text = x!!.list!!.size.toString()
+                        friendmodel.updateFriends(x!!.list!!)
+
+                        Log.d("updateeeddd friends list!!!", "here" + snapshot.data)
+                    }
+
+                }
 
                 //TODO set the user obj data AKA, fetch their zipcode, fetch favs, fetch username
                 viewModel.setUser(user)
@@ -224,6 +300,8 @@ class AccountFragment : Fragment() {
     fun handleFacebookAccessToken(token: AccessToken) {
 
     }
+
+
 }
 
 

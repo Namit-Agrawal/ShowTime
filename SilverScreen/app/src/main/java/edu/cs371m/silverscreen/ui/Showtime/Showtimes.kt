@@ -40,8 +40,10 @@ class Showtimes : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         var time = LocalDateTime.now()
         date = time.toString().substring(0,10)
+
         val days_of_week = mutableListOf<String>()
         days_of_week.add(time.toString())
 
@@ -57,6 +59,7 @@ class Showtimes : Fragment() {
             ViewModelProviders.of(this).get(ShowtimesViewModel::class.java)
         val root = inflater.inflate(R.layout.showtimes_fragment, container, false)
         val adapter = initRecyclerView(root)
+        adapter.changeDate(date)
 
         val post = this.arguments?.getParcelable<TheatrePost>("post")
 

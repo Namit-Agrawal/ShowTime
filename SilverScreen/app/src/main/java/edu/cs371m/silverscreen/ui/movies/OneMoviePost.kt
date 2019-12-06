@@ -27,8 +27,21 @@ class OneMoviePost : AppCompatActivity() {
     private lateinit var entireMoviePost: MoviePost
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_one_movie_post)
+        val intent = intent
+        val callingBundle = intent.extras
+        var layout:Boolean
+        callingBundle.apply {
+            layout = intent.getBooleanExtra("haveShowtime",false)
+            if (layout) {
+                setContentView(R.layout.activity_one_movie_post)
+            } else {
+                setContentView(R.layout.activity_one_movie_post_from_theatre)
+            }
+
+        }
+
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         this.supportActionBar.let{
@@ -43,8 +56,7 @@ class OneMoviePost : AppCompatActivity() {
             favorite.visibility=View.INVISIBLE
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val intent = intent
-        val callingBundle = intent.extras
+
         var movie_title = ""
         var img = ""
         var duration = ""
@@ -75,11 +87,13 @@ class OneMoviePost : AppCompatActivity() {
                 .replace(R.id.frag, Cast.newInstance(entireMoviePost))
                 .commit()
         }
-        movie_timings.setOnClickListener {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frag, MovieTimes.newInstance(entireMoviePost))
-                .commit()
+        if (layout) {
+            movie_timings.setOnClickListener {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frag, MovieTimes.newInstance(entireMoviePost))
+                    .commit()
+            }
         }
 
 

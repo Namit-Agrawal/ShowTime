@@ -5,14 +5,17 @@ import android.view.View
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.R
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.api.api.Times
 import edu.cs371m.silverscreen.ui.movie_times.MovieTimesViewModel
 import edu.cs371m.silverscreen.ui.movie_times.TheatreTimes
+import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
 import org.w3c.dom.Text
 
 
@@ -30,7 +33,7 @@ class MovieTimesAdapter(private val MoveTimesViewMode: MovieTimesViewModel) :
         var r3 = itemView.findViewById<TableRow>(R.id.r3)
         var r4 = itemView.findViewById<TableRow>(R.id.r4)
         var r5 = itemView.findViewById<TableRow>(R.id.r5)
-
+        var wholePost = itemView.findViewById<LinearLayout>(R.id.post)
 
         fun bind(item :TheatreTimes?) {
 
