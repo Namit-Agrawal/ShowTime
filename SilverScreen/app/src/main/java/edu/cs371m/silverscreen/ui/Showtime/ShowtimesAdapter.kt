@@ -78,9 +78,9 @@ class ShowtimesAdapter(private val viewModel: ShowtimesViewModel) : RecyclerView
                 button.text= list!![i].substring(11)
 //                //TODO: what is index????? how to insure no overlapping?
                 buttonsList.add(button)
-                rowList[rowNum].addView(button, i%4)
+                rowList[rowNum].addView(button, i%3)
                 i++
-                if (i % 4 == 0) {
+                if (i % 3 == 0) {
                     rowNum++
                 }
             }
