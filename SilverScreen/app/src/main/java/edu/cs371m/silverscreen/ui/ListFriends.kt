@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
+import edu.cs371m.silverscreen.FriendProfile
+import edu.cs371m.silverscreen.FriendProfileViewModel
 
 import edu.cs371m.silverscreen.R
 import kotlinx.android.synthetic.main.list_friends_fragment.*
@@ -51,7 +54,6 @@ class ListFriends : Fragment() {
             database.collection("Users")
                 .get()
                 .addOnSuccessListener { result ->
-
                     for (document in result) {
                         Log.d("help", "${document.id} => ${document.data}")
                         val map = document.data
@@ -81,8 +83,19 @@ class ListFriends : Fragment() {
 
     private fun initRecyclerView(root: View?): ListFriendsAdapter {
         val rv = root!!.findViewById<RecyclerView>(R.id.recycler_view_friend)
+        val profile:()-> Unit= {
 
-        val adapter =ListFriendsAdapter(viewModel)
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.container, FriendProfile())
+                ?.addToBackStack(null)
+                // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
+                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                ?.commit()
+        }
+        var friendviewModel = activity?.let { ViewModelProviders.of(it).get(FriendProfileViewModel::class.java) }!!
+
+        val adapter =ListFriendsAdapter(viewModel, profile, friendviewModel)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(context)
         val itemDecor = DividerItemDecoration(rv.context, LinearLayoutManager.VERTICAL)

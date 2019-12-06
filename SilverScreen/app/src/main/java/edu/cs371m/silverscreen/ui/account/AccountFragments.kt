@@ -152,6 +152,7 @@ class AccountFragment : Fragment() {
             activity?.supportFragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.container, ListFriends())
+                ?.addToBackStack(null)
                 // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
                 ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 ?.commit()
@@ -163,6 +164,7 @@ class AccountFragment : Fragment() {
             activity?.supportFragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.container, Request())
+                ?.addToBackStack(null)
                 // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
                 ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 ?.commit()

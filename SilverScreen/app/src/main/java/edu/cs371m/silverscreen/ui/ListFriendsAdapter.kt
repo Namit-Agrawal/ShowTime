@@ -5,19 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ListAdapter
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import edu.cs371m.silverscreen.FriendProfileViewModel
 import edu.cs371m.silverscreen.R
+import edu.cs371m.silverscreen.ui.trailer.TrailersViewModel
 
-class ListFriendsAdapter(private val viewModel: ListFriendsViewModel): RecyclerView.Adapter<ListFriendsAdapter.VH>() {
+class ListFriendsAdapter(private val viewModel: ListFriendsViewModel, private val profile: ()-> Unit,private val profileViewModel: FriendProfileViewModel): RecyclerView.Adapter<ListFriendsAdapter.VH>() {
     private var friends = listOf<String>()
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name = itemView.findViewById<TextView>(R.id.name)
+        var friend = itemView.findViewById<LinearLayout>(R.id.friend)
 
         fun bind(item: String?) {
             if (item == null) {
@@ -33,6 +38,16 @@ class ListFriendsAdapter(private val viewModel: ListFriendsViewModel): RecyclerV
                 val x = it.data!!.get("username")
                 name.text = x.toString()
             }
+            friend.setOnClickListener{
+                Log.d("here","launch profile")
+               // var model =   ViewModelProviders.of(it).get(FriendProfileViewModel::class.java)
+                //model.
+               // profileViewModel.fetchFriendProfile(item)
+                //profile()
+
+            }
+
+
             //set on click listeners
 
 
