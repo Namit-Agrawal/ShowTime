@@ -80,15 +80,15 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_contact_phone_black_24dp"></ImageView>
+                android:background="@drawable/ic_add_circle_black_24dp"></ImageView>
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="6"
+                android:layout_weight="10"
                 android:layout_marginLeft="10dp"
 
                 android:layout_height="match_parent"
-                android:text="Friends Requests"
+                android:text="Requests"
                 android:textSize="25dp">
             </TextView>
 

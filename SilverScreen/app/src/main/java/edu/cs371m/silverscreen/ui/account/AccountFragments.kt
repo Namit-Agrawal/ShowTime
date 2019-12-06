@@ -250,7 +250,7 @@ class AccountFragment : Fragment() {
 
                     } else if (snapshot != null && snapshot.exists()) {
                         val x = snapshot.toObject(MoviesViewModel.IncomingRequests::class.java)
-                        //requests.text = x!!.list!!.size.toString()
+                        requests.text = x!!.list!!.size.toString()
                         model.updateRequests(x!!.list!!)
 
                         Log.d("updateeeddd friends list!!!", "here" + snapshot.data)
