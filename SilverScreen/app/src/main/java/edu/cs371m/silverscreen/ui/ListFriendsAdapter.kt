@@ -4,18 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.ListAdapter
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import edu.cs371m.silverscreen.FriendProfileViewModel
 import edu.cs371m.silverscreen.R
-import edu.cs371m.silverscreen.ui.trailer.TrailersViewModel
 
 class ListFriendsAdapter(private val viewModel: ListFriendsViewModel, private val profile: ()-> Unit,private val profileViewModel: FriendProfileViewModel): RecyclerView.Adapter<ListFriendsAdapter.VH>() {
     private var friends = listOf<String>()
@@ -32,7 +26,6 @@ class ListFriendsAdapter(private val viewModel: ListFriendsViewModel, private va
             //uid of the friends
             var database = FirebaseFirestore.getInstance()
             val user = FirebaseAuth.getInstance().currentUser
-
             val requestDoc = database.collection("Users").document(item)
             requestDoc.get().addOnSuccessListener {
                 val x = it.data!!.get("username")
@@ -42,8 +35,8 @@ class ListFriendsAdapter(private val viewModel: ListFriendsViewModel, private va
                 Log.d("here","launch profile")
                // var model =   ViewModelProviders.of(it).get(FriendProfileViewModel::class.java)
                 //model.
-               // profileViewModel.fetchFriendProfile(item)
-                //profile()
+                profileViewModel.fetchFriendProfile(item)
+                profile()
 
             }
 

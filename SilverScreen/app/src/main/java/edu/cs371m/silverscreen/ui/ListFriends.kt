@@ -17,9 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import edu.cs371m.silverscreen.FriendProfile
-import edu.cs371m.silverscreen.FriendProfileViewModel
 
 import edu.cs371m.silverscreen.R
 import kotlinx.android.synthetic.main.list_friends_fragment.*
