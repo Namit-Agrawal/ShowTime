@@ -47,13 +47,7 @@ class OneMoviePost : AppCompatActivity() {
         this.supportActionBar.let{
             it?.setDisplayShowTitleEnabled(false)
             it?.setDisplayShowCustomEnabled(true)
-            val customView: View =
-                layoutInflater.inflate(R.layout.onepostmovietoolbar, null)
 
-            // Apply the custom view
-            it?.customView = customView
-            val favorite = customView.findViewById<ImageButton>(R.id.favorite)
-            favorite.visibility=View.INVISIBLE
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -74,7 +68,7 @@ class OneMoviePost : AppCompatActivity() {
 
         mov_title.text = movie_title
         duration_lay.text = duration
-        //viewModel.netFetchImage(img, movie_thumbnail, true)
+        viewModel.netFetchImage(img, movie_thumbnail, true)
         movie_trailers.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
