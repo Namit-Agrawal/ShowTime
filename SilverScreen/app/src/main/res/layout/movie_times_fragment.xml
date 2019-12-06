@@ -21,16 +21,7 @@
                 android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:id="@+id/day1">
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:id="@+id/day_of_week1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text = "TODAY">
-                </TextView>
+
                 <TextView
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -64,16 +55,7 @@
                 android:background="#FFFFFF"
                 android:id="@+id/day2"
                 >
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:id="@+id/day_of_week2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text = "TODAY">
-                </TextView>
+
                 <TextView
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -106,16 +88,7 @@
                 android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:id="@+id/day3">
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:id="@+id/day_of_week3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text = "TODAY">
-                </TextView>
+
                 <TextView
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -147,16 +120,7 @@
                 android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:id="@+id/day4">
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:id="@+id/day_of_week4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text = "TODAY">
-                </TextView>
+
                 <TextView
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -188,16 +152,7 @@
                 android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:id="@+id/day5">
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:id="@+id/day_of_week5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text = "TODAY">
-                </TextView>
+
                 <TextView
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -230,16 +185,7 @@
                 android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:id="@+id/day6">
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:id="@+id/day_of_week6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text = "TODAY">
-                </TextView>
+
                 <TextView
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -273,16 +219,7 @@
                 android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:id="@+id/day7">
-                <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:id="@+id/day_of_week7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text = "TODAY">
-                </TextView>
+
                 <TextView
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"

@@ -17,6 +17,10 @@ class MovieDBRepository(private val movieApi: MovieDBApi) {
     suspend fun fetchTrailer(id: Int, key: String): List<videoPost>{
         return movieApi.fetchVideos(id, key).results
     }
+    suspend fun fetchComingSoon(key: String, reg: String): List<MovieDBPost>{
+        return movieApi.fetchUpcoming(key, reg).results
+    }
+
 
 
 }

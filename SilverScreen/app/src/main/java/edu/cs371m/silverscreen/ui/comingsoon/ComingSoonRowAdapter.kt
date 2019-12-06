@@ -1,4 +1,4 @@
-package edu.cs371m.silverscreen.ui.recommendation
+package edu.cs371m.silverscreen.ui.comingsoon
 
 import android.text.style.TtsSpan
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import edu.cs371m.silverscreen.api.api.MovieDBPost
 import edu.cs371m.silverscreen.api.api.MoviePost
 import edu.cs371m.silverscreen.ui.movies.MoviesViewModel
 
-class RecommendationsAdapter(private val viewModel: MoviesViewModel): RecyclerView.Adapter<RecommendationsAdapter.VH>() {
+class ComingSoonRowAdapter(private val viewModel: MoviesViewModel): RecyclerView.Adapter<ComingSoonRowAdapter.VH>() {
     private var recommendations = listOf<MovieDBPost>()
 
     inner class VH(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -38,7 +38,6 @@ class RecommendationsAdapter(private val viewModel: MoviesViewModel): RecyclerVi
             }
             durationText.text = "Duration not available"
             actors.text = "Actors not available"
-
             if(item.thumbnail!=null)
             {
                 viewModel.netFetchImage("https://image.tmdb.org/t/p/w185/"+item.thumbnail, thumbnail, false)
@@ -52,7 +51,7 @@ class RecommendationsAdapter(private val viewModel: MoviesViewModel): RecyclerVi
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-            holder.bind(recommendations[holder.adapterPosition])
+        holder.bind(recommendations[holder.adapterPosition])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

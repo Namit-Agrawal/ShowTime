@@ -111,7 +111,7 @@ class MovieTimes : Fragment() {
         day_month2.text = months[days_of_week[1].substring(5,7).toInt()-1]
 //
         day_date3.text = days_of_week[2].substring(8,10)
-        day_month2.text = months[days_of_week[2].substring(5,7).toInt()-1]
+        day_month3.text = months[days_of_week[2].substring(5,7).toInt()-1]
 //
 
 //
@@ -177,14 +177,11 @@ class MovieTimes : Fragment() {
         var correct = organizeShowtimes(times!!)
         if (correct != null)
             adapter.submitList(correct)
-        Log.d("times", times!!.size.toString())
         return root
     }
 
     private fun organizeShowtimes(times: List<Times>): List<TheatreTimes>? {
-        if (times == null) {
-            return null
-        }
+
         val correct_times = mutableListOf<TheatreTimes>()
 
         var index = 0
@@ -212,8 +209,8 @@ class MovieTimes : Fragment() {
                         }
                     }
                 } else {
-                    Log.d("currentTheatre", currentTheatre)
-                    Log.d("list of times", currentList!!.toString())
+//                    Log.d("currentTheatre", currentTheatre)
+//                    Log.d("list of times", currentList!!.toString())
                     //done with this particular theatre, add to list
                     var theatre = TheatreTimes()
                     theatre.theatreName = currentTheatre!!

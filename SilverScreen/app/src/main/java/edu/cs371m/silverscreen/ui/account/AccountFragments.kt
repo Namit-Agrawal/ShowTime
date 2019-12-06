@@ -3,7 +3,6 @@ package edu.cs371m.silverscreen.ui.account
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Movie
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -99,12 +98,9 @@ class AccountFragment : Fragment() {
         if (activity is AppCompatActivity) {
             (activity as AppCompatActivity).setSupportActionBar(toolBar)
             (activity as AppCompatActivity).supportActionBar.let {
-                it?.setDisplayShowTitleEnabled(false)
+                it?.setDisplayShowTitleEnabled(true)
                 it?.setDisplayShowCustomEnabled(true)
-                val customView: View =
-                    layoutInflater.inflate(R.layout.actionbar_multiple, null)
-                // Apply the custom view
-                it?.customView = customView
+                it?.title="Account"
             }
         }
 
@@ -132,19 +128,18 @@ class AccountFragment : Fragment() {
                 viewModel.favorites.value = mutableListOf()
                 viewModel.favPostID.value = mutableListOf()
 
-                userTV.isVisible = false
+                //userTV.isVisible = false
             }
 
         }
-        val facebook = root.findViewById<Button>(R.id.facebook)
-        facebook.setOnClickListener {
-
-
-            LoginManager.getInstance()
-                .logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        }
+//        val facebook = root.findViewById<Button>(R.id.facebook)
+//        facebook.setOnClickListener {
+//
+//
+//            LoginManager.getInstance()
+//                .logInWithReadPermissions(this, Arrays.asList("public_profile"));
+//        }
         val accessToken = AccessToken.getCurrentAccessToken()
-        val isLoggedIn = accessToken != null && !accessToken.isExpired()
 
 
         val friends_but = root.findViewById<LinearLayout>(R.id.friends)
@@ -192,14 +187,14 @@ class AccountFragment : Fragment() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 var res = ""
-                res = getStuff(user!!)
-                userTV.setText(res)
-                setDisplayName.setOnClickListener {
-                    var name = displayNameET.text.toString()
-                    userTV.setText("User: " + name + "\n" + "Email: " + user!!.email)
-
-                }
-
+          //      res = getStuff(user!!)
+//                userTV.setText(res)
+//                setDisplayName.setOnClickListener {
+//                    var name = displayNameET.text.toString()
+//                    userTV.setText("User: " + name + "\n" + "Email: " + user!!.email)
+//
+//                }
+                userTV.setText("Welcome\n"+"User: " + user!!.displayName + "\n" + "Email: " + user.email)
                 viewModel.favorites.value = mutableListOf()
                 viewModel.favPostID.value = mutableListOf()
                 val docRef =database.collection("Users").document(user.uid)
@@ -290,18 +285,15 @@ class AccountFragment : Fragment() {
 
     fun getStuff(user: FirebaseUser?): String {
 
-        var email = ""
         var res = ""
         if (user != null) {
-            email = user.email!!
+            var email = user.email!!
             res = "User: " + user.displayName + "\n" + "Email: " + email
         }
         return res
     }
 
-    fun handleFacebookAccessToken(token: AccessToken) {
 
-    }
 
 
 }

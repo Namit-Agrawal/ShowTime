@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.silverscreen.Location
 import edu.cs371m.silverscreen.R
+import edu.cs371m.silverscreen.ui.comingsoon.ComingSoon
 import edu.cs371m.silverscreen.ui.myFavorites.Favorites
 import kotlinx.android.synthetic.main.fragment_movies.*
 
@@ -58,7 +59,6 @@ class MoviesFragment : Fragment() {
                 // Apply the custom view
                 it?.customView = customView
                 val location = customView.findViewById<TextView>(R.id.location)
-                val filterBut = customView.findViewById<ImageButton>(R.id.filter)
                 location.setOnClickListener{
                     activity?.supportFragmentManager
                         ?.beginTransaction()
@@ -66,6 +66,16 @@ class MoviesFragment : Fragment() {
                         ?.addToBackStack(null)
                         ?.commit()
                 }
+                val coming = customView.findViewById<TextView>(R.id.coming_soon)
+                coming.setOnClickListener {
+                    activity?.supportFragmentManager
+                        ?.beginTransaction()
+                        ?.replace(R.id.container, ComingSoon())
+                        ?.addToBackStack(null)
+                        ?.commit()
+                }
+
+
 
                 val myMovies = customView.findViewById<TextView>(R.id.favorites_upper)
                 myMovies.setOnClickListener {
